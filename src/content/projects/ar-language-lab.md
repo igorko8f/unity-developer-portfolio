@@ -3,8 +3,8 @@ title: 'AR Language Lab'
 subtitle: 'Marker-based Augmented Reality educational application built with Unity 6 and Vuforia, featuring decoupled content-driven lessons'
 category: 'educational-ar'
 tier: 'core'
-featuredOnHome: true
-order: 3
+featuredOnHome: false
+order: 4
 
 genre: 'Augmented Reality / Educational Mobile App'
 platforms: ['Android']
@@ -34,8 +34,22 @@ architectureHighlights:
   - 'Interactive validation pipeline verifying 3D spatial task completion in real-time'
   - 'Smooth state transitions between object discovery, interactive tasks, and evaluation'
 
-coverImage: '/images/projects/ar-language-lab-cover.webp'
-coverAlt: 'AR Language Lab educational interface and marker tracking'
+coverImage: '/images/projects/ar-language-lab-cover.jpg'
+coverAlt: 'AR Language Lab key art featuring 3D AR typography, open book, globe, and multilingual speech bubbles'
+
+gallery:
+  - src: '/images/projects/ar-language-lab/ar-marker-discovery.jpg'
+    alt: 'AR Language Lab Vuforia marker tracking spawning a 3D apple with multilingual vocabulary label'
+    caption: 'Marker-Based AR Tracking & 3D Object Discovery'
+    aspect: 'portrait'
+  - src: '/images/projects/ar-language-lab/ar-spatial-task.jpg'
+    alt: 'AR Language Lab interactive 3D spatial placement task aligning a 3D book onto a target zone on a table'
+    caption: 'Interactive 3D Spatial Placement & Real-Time Validation'
+    aspect: 'portrait'
+  - src: '/images/projects/ar-language-lab/ar-sentence-completion.jpg'
+    alt: 'AR Language Lab sentence completion quiz overlaid on a tracked 3D coffee and croissant AR scene'
+    caption: 'Data-Driven Lesson Quiz & Sentence Completion'
+    aspect: 'portrait'
 
 links:
   - label: 'GitHub Repository'

@@ -20,11 +20,11 @@ export const WORK_EXPERIENCE: WorkExperience[] = [
   {
     id: 'avantaj-prim',
     company: 'Avantaj Prim S.R.L',
-    role: 'Senior Unity Developer',
+    role: 'Senior / Lead Unity Developer',
     employmentType: 'Full-time',
     period: {
       start: '05/2023',
-      end: 'Present',
+      end: '06/2026',
     },
     location: 'Chisinau, Moldova',
     remote: false,
@@ -178,5 +178,5 @@ export const EDUCATION: Education = {
 export const LANGUAGES: Language[] = [
   { language: 'Russian', proficiency: 'Native language' },
   { language: 'Romanian', proficiency: 'B2' },
-  { language: 'English', proficiency: 'B1' },
+  { language: 'English', proficiency: 'B2' },
 ];

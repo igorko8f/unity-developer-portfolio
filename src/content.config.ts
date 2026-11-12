@@ -42,12 +42,31 @@ const projectsCollection = defineCollection({
     // Visual Assets
     coverImage: z.string(),
     coverAlt: z.string(),
+    video: z
+      .object({
+        src: z.string(),
+        poster: z.string().optional(),
+        title: z.string().optional(),
+        caption: z.string().optional(),
+      })
+      .optional(),
+    videos: z
+      .array(
+        z.object({
+          src: z.string(),
+          poster: z.string().optional(),
+          title: z.string().optional(),
+          caption: z.string().optional(),
+        }),
+      )
+      .default([]),
     gallery: z
       .array(
         z.object({
           src: z.string(),
           alt: z.string(),
           caption: z.string().optional(),
+          aspect: z.enum(['portrait', 'landscape']).optional(),
         }),
       )
       .default([]),

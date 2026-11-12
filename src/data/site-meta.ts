@@ -48,7 +48,6 @@ export const SITE_META: SiteMeta = {
   },
   nav: [
     { label: 'Projects', href: '/projects' },
-    { label: 'AI Engineering', href: '/ai-engineering' },
     { label: 'Experience', href: '/experience' },
     { label: 'CV', href: '/cv' },
   ],

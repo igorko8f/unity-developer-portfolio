@@ -56,7 +56,7 @@ export const SKILL_CATEGORIES: SkillCategory[] = [
     skills: [
       {
         name: 'REST API Client Integration (HTTP/JSON, Auth Tokens, Error Handling)',
-        level: 'Expert',
+        level: 'Advanced',
         highlight: true,
       },
       {
@@ -157,7 +157,7 @@ export const SKILL_CATEGORIES: SkillCategory[] = [
       },
       {
         name: 'CI/CD Pipelines (GitHub Actions, Automated Build Scripts)',
-        level: 'Proficient',
+        level: 'Advanced',
       },
       {
         name: 'Crash Triage & Diagnostics (Firebase Crashlytics, Smartlook)',

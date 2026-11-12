@@ -32,7 +32,17 @@ architectureHighlights:
   - 'Data and execution logic strictly separated for high extensibility'
 
 coverImage: '/images/projects/cas-cover.webp'
-coverAlt: 'Component Ability System architecture and inspector setup'
+coverAlt: 'Component Ability System key art showing a blue-cloaked mage casting modular cyan and amber AoE and chain-targeting abilities in a low-poly forest'
+
+videos:
+  - src: '/videos/projects/cas-gameplay.mp4'
+    poster: '/images/projects/cas/gameplay-poster.webp'
+    title: 'Runtime Ability Execution — Gameplay Demo'
+    caption: 'Live gameplay demonstration showing targeting, ability execution sequencing, and status effects in action.'
+  - src: '/videos/projects/cas-ability-construction.mp4'
+    poster: '/images/projects/cas/ability-construction-poster.webp'
+    title: 'Inspector-Driven Ability Construction — Editor Workflow'
+    caption: 'Composing an AbilityConfig ScriptableObject in the Unity Inspector from modular components (LockInput, VisualFX, Sound, Animation, Movement) without writing new code.'
 
 links:
   - label: 'GitHub Repository'

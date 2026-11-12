@@ -33,7 +33,13 @@ architectureHighlights:
   - 'ScriptableObject-based figure and board configuration'
 
 coverImage: '/images/projects/tetris-sudocu-cover.webp'
-coverAlt: 'Tetris Sudoku gameplay board and custom figure editor'
+coverAlt: 'Tetris Sudocu key art showing an isometric 8x8 puzzle board with purple polyomino blocks, cyan row-and-column clearing energy bursts, and rotatable block figures'
+
+videos:
+  - src: '/videos/projects/tetris-sudocu-gameplay.mp4'
+    poster: '/images/projects/tetris-sudocu-cover.webp'
+    title: 'Tetris Sudocu — Gameplay & Scoring Loop'
+    caption: 'Live gameplay demonstration showing polyomino rotation, drag-and-drop grid placement, row and column clearing bursts, score progression, and persistent Top-3 high score tracking.'
 
 links:
   - label: 'GitHub Repository'
