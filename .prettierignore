@@ -1,0 +1,13 @@
+# Build output and generated files
+dist/
+.astro/
+
+# Dependencies
+node_modules/
+package-lock.json
+
+# Local-only documentation
+docs/
+
+# Static assets
+public/
