@@ -1,16 +1,24 @@
 ---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/home/Hero.astro';
+import MetricsStrip from '../components/home/MetricsStrip.astro';
+import FeaturedProjects from '../components/home/FeaturedProjects.astro';
+import EngineeringPillars from '../components/home/EngineeringPillars.astro';
+import AISpotlight from '../components/home/AISpotlight.astro';
+import ExperiencePreview from '../components/home/ExperiencePreview.astro';
+import ContactSection from '../components/home/ContactSection.astro';
+import { SITE_META } from '../data/site-meta';
 ---
 
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="icon" href="/favicon.ico" />
-    <meta name="viewport" content="width=device-width" />
-    <meta name="generator" content={Astro.generator} />
-    <title>Astro</title>
-  </head>
-  <body>
-    <h1>Astro</h1>
-  </body>
-</html>
+<BaseLayout
+  title={`${SITE_META.developerName} | Senior / Lead Unity Developer`}
+  description={SITE_META.description}
+>
+  <Hero />
+  <MetricsStrip />
+  <FeaturedProjects />
+  <EngineeringPillars />
+  <AISpotlight />
+  <ExperiencePreview />
+  <ContactSection />
+</BaseLayout>

@@ -1,0 +1,140 @@
+---
+import { SITE_META } from '../data/site-meta';
+---
+
+<footer class="mt-auto border-t border-slate-800/80 bg-slate-950/90 py-12">
+  <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+    <div class="grid grid-cols-1 gap-8 md:grid-cols-12 md:gap-12">
+      <!-- Left Column: Status & Brand -->
+      <div class="space-y-4 md:col-span-6">
+        <div class="flex items-center gap-2">
+          <span class="relative flex h-2.5 w-2.5">
+            <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75"></span>
+            <span class="relative inline-flex h-2.5 w-2.5 rounded-full bg-emerald-500"></span>
+          </span>
+          <span class="font-mono text-xs font-medium text-emerald-400">
+            {SITE_META.status.label}
+          </span>
+          <span class="text-xs text-slate-400">• {SITE_META.status.sublabel}</span>
+        </div>
+
+        <p class="max-w-md text-sm text-slate-400 leading-relaxed">
+          Senior Unity Developer specializing in commercial mobile games, decoupled software
+          architecture, Firebase / REST backend integration, and AI-augmented engineering workflows.
+        </p>
+
+        <!-- Direct Email Interaction -->
+        <div class="pt-2">
+          <div class="inline-flex items-center gap-2 rounded-lg border border-slate-800 bg-slate-900/80 px-3 py-1.5 font-mono text-xs">
+            <span class="text-slate-400">Direct Email:</span>
+            <a href={`mailto:${SITE_META.email}`} class="text-cyan-400 hover:underline">
+              {SITE_META.email}
+            </a>
+            <button
+              id="copy-email-btn"
+              type="button"
+              data-email={SITE_META.email}
+              class="ml-1 rounded px-1.5 py-0.5 text-[11px] text-slate-300 hover:bg-slate-800 hover:text-slate-100 focus:outline-none focus:ring-1 focus:ring-cyan-400"
+              title="Copy email to clipboard"
+              aria-label="Copy email address"
+            >
+              Copy
+            </button>
+            <span id="copy-toast" class="hidden text-[11px] text-emerald-400 font-semibold">
+              Copied!
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Center Column: Quick Navigation -->
+      <div class="space-y-3 md:col-span-3">
+        <h3 class="font-mono text-xs font-semibold uppercase tracking-wider text-slate-300">
+          Navigation
+        </h3>
+        <ul class="space-y-2 text-sm">
+          <li>
+            <a href="/" class="text-slate-400 hover:text-cyan-400 transition-colors">
+              Home
+            </a>
+          </li>
+          {SITE_META.nav.map((item) => (
+            <li>
+              <a href={item.href} class="text-slate-400 hover:text-cyan-400 transition-colors">
+                {item.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <!-- Right Column: Connect & Profiles -->
+      <div class="space-y-3 md:col-span-3">
+        <h3 class="font-mono text-xs font-semibold uppercase tracking-wider text-slate-300">
+          Profiles & Links
+        </h3>
+        <ul class="space-y-2 text-sm">
+          {SITE_META.socials.map((link) => (
+            <li>
+              <a
+                href={link.url}
+                target={link.url.startsWith('http') ? '_blank' : undefined}
+                rel={link.url.startsWith('http') ? 'noopener noreferrer' : undefined}
+                class="inline-flex items-center gap-1.5 text-slate-400 hover:text-cyan-400 transition-colors"
+              >
+                <span>{link.platform}</span>
+                {link.url.startsWith('http') && (
+                  <svg
+                    class="h-3.5 w-3.5 opacity-60"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+                    />
+                  </svg>
+                )}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+
+    <!-- Bottom Bar -->
+    <div class="mt-12 flex flex-col items-center justify-between gap-4 border-t border-slate-800/80 pt-8 text-xs text-slate-400 sm:flex-row">
+      <p>
+        © {new Date().getFullYear()} {SITE_META.developerName}. Built for high performance.
+      </p>
+      <p class="font-mono text-[11px] text-slate-400">
+        Static HTML/CSS • Astro 7 & Tailwind 4 • Zero Framework JS Overhead
+      </p>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const copyBtn = document.getElementById('copy-email-btn');
+  const toast = document.getElementById('copy-toast');
+  const email = copyBtn?.getAttribute('data-email') || 'igor.coseanic@icloud.com';
+
+  if (copyBtn && toast) {
+    copyBtn.addEventListener('click', async () => {
+      try {
+        await navigator.clipboard.writeText(email);
+        toast.classList.remove('hidden');
+        copyBtn.classList.add('hidden');
+        setTimeout(() => {
+          toast.classList.add('hidden');
+          copyBtn.classList.remove('hidden');
+        }, 2000);
+      } catch (err) {
+        console.error('Failed to copy email:', err);
+      }
+    });
+  }
+</script>

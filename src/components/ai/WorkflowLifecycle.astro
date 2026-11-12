@@ -1,0 +1,86 @@
+---
+const stages = [
+  {
+    step: '01',
+    name: 'Context Preparation',
+    tag: 'Human Engineer',
+    tagColor: 'border-cyan-500/30 bg-cyan-950/40 text-cyan-300',
+    description:
+      'Structure the problem space, define memory constraints, specify allowed libraries (e.g. UniTask, R3), and isolate pure interfaces.',
+  },
+  {
+    step: '02',
+    name: 'Agentic Draft',
+    tag: 'LLM Agent',
+    tagColor: 'border-purple-500/30 bg-purple-950/40 text-purple-300',
+    description:
+      'Prompt developer agents (Antigravity, Claude Code) to scaffold adversarial test fixtures, serialization DTOs, or boilerplate logic.',
+  },
+  {
+    step: '03',
+    name: 'Compiler & Static Check',
+    tag: 'Automated CI',
+    tagColor: 'border-slate-700 bg-slate-900 text-slate-300',
+    description:
+      'Execute Roslyn static analysis, compilation checks, and type-safety diagnostics to catch immediate syntax or type incompatibilities.',
+  },
+  {
+    step: '04',
+    name: 'Human Review & Profiling',
+    tag: 'Human Engineer',
+    tagColor: 'border-emerald-500/30 bg-emerald-950/40 text-emerald-300',
+    description:
+      'Audit generated code for GC allocations, boxing, Unity lifecycle safety, and architectural coupling using Unity Profiler.',
+  },
+  {
+    step: '05',
+    name: 'Automated Test Verification',
+    tag: 'Automated CI',
+    tagColor: 'border-slate-700 bg-slate-900 text-slate-300',
+    description:
+      'Run comprehensive NUnit and PlayMode test suites to verify that all business logic and edge cases pass deterministically.',
+  },
+];
+---
+
+<div class="rounded-2xl border border-slate-800 bg-slate-900/40 p-6 sm:p-8 lg:p-10 space-y-8">
+  <div class="space-y-2">
+    <div class="inline-flex items-center gap-2 font-mono text-xs uppercase tracking-wider text-emerald-400">
+      <span>Verification Protocol</span>
+    </div>
+    <h3 class="text-xl sm:text-2xl font-bold tracking-tight text-slate-100">
+      Human-in-the-Loop Engineering Lifecycle
+    </h3>
+    <p class="text-sm text-slate-400 max-w-2xl leading-relaxed">
+      AI output is treated as untrusted draft input. No code enters production without passing
+      through our deterministic verification pipeline.
+    </p>
+  </div>
+
+  <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-5">
+    {stages.map((stage, idx) => (
+      <div class="relative flex flex-col justify-between rounded-xl border border-slate-800 bg-slate-950/80 p-5 transition hover:border-slate-700">
+        <div class="space-y-3">
+          <div class="flex items-center justify-between">
+            <span class="font-mono text-xs font-bold text-slate-400">STAGE {stage.step}</span>
+            <span
+              class={`inline-flex items-center rounded-full border px-2 py-0.5 font-mono text-[10px] font-medium ${stage.tagColor}`}
+            >
+              {stage.tag}
+            </span>
+          </div>
+
+          <h4 class="font-bold text-slate-100 text-sm">{stage.name}</h4>
+
+          <p class="text-xs text-slate-400 leading-relaxed">{stage.description}</p>
+        </div>
+
+        {idx < stages.length - 1 && (
+          <div class="hidden lg:block absolute -right-2.5 top-1/2 -translate-y-1/2 text-slate-400 font-mono text-xs z-10">
+            →
+          </div>
+        )}
+      </div>
+    ))}
+  </div>
+</div>

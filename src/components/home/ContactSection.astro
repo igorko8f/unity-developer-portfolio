@@ -1,0 +1,148 @@
+---
+import { SITE_META } from '../../data/site-meta';
+---
+
+<section
+  id="contact"
+  class="border-t border-slate-800/80 bg-slate-900/60 py-20 lg:py-28"
+  aria-labelledby="contact-heading"
+>
+  <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+    <div class="mx-auto max-w-3xl text-center space-y-6">
+      <div class="inline-flex items-center gap-2 rounded-full border border-cyan-500/30 bg-cyan-950/40 px-3.5 py-1.5 font-mono text-xs text-cyan-300">
+        <span class="relative flex h-2 w-2">
+          <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75"></span>
+          <span class="relative inline-flex h-2 w-2 rounded-full bg-emerald-500"></span>
+        </span>
+        <span>
+          {SITE_META.status.label} • {SITE_META.status.sublabel}
+        </span>
+      </div>
+
+      <h2
+        id="contact-heading"
+        class="text-3xl font-bold tracking-tight text-slate-100 sm:text-4xl lg:text-5xl"
+      >
+        Let's Discuss Your Next Game Project
+      </h2>
+
+      <p class="text-base text-slate-400 leading-relaxed sm:text-lg">
+        Whether you need architectural leadership, client-server integration, mobile performance
+        optimization, or an engineer who can accelerate your team with modern workflows—I'd love to
+        connect.
+      </p>
+
+      <!-- Contact Interaction Card -->
+      <div class="mt-8 rounded-2xl border border-slate-800 bg-slate-950 p-6 sm:p-8 space-y-6 text-left">
+        <div class="flex flex-col justify-between gap-4 sm:flex-row sm:items-center border-b border-slate-800/80 pb-6">
+          <div class="flex items-center gap-4">
+            <div class="relative h-12 w-12 shrink-0 overflow-hidden rounded-full border border-cyan-500/40 ring-2 ring-cyan-500/20 shadow-md">
+              <img
+                src="/images/avatar.webp"
+                alt="Igor Coseanic"
+                width="48"
+                height="48"
+                class="h-full w-full object-cover"
+              />
+            </div>
+            <div>
+              <span class="font-mono text-xs uppercase tracking-wider text-slate-400">
+                Direct Contact
+              </span>
+              <div class="mt-0.5 flex items-center gap-2">
+                <a
+                  href={`mailto:${SITE_META.email}`}
+                  class="font-mono text-base font-semibold text-cyan-400 hover:underline sm:text-lg"
+                >
+                  {SITE_META.email}
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <div class="flex items-center gap-3">
+            <button
+              id="home-copy-email-btn"
+              type="button"
+              data-email={SITE_META.email}
+              class="inline-flex items-center gap-1.5 rounded-lg border border-slate-700 bg-slate-900 px-3.5 py-2 font-mono text-xs font-medium text-slate-200 transition hover:border-slate-500 hover:text-slate-100 focus:outline-none focus:ring-2 focus:ring-cyan-400"
+            >
+              <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"
+                />
+              </svg>
+              <span>Copy Email</span>
+            </button>
+            <span
+              id="home-copy-toast"
+              class="hidden font-mono text-xs text-emerald-400 font-semibold"
+            >
+              Copied to clipboard!
+            </span>
+          </div>
+        </div>
+
+        <div class="flex flex-wrap items-center justify-between gap-4 pt-2">
+          <div class="flex flex-wrap items-center gap-3">
+            <a
+              href={`mailto:${SITE_META.email}`}
+              class="inline-flex items-center justify-center rounded-lg bg-cyan-500 px-5 py-2.5 font-mono text-sm font-semibold text-slate-950 transition hover:bg-cyan-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400"
+            >
+              Send Email
+            </a>
+            <a
+              href="/cv"
+              class="inline-flex items-center justify-center rounded-lg border border-slate-700 bg-slate-900 px-5 py-2.5 font-mono text-sm font-medium text-slate-200 transition hover:border-slate-500 hover:text-slate-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400"
+            >
+              View Full CV
+            </a>
+          </div>
+
+          <!-- Social Links -->
+          <div class="flex items-center gap-3">
+            {SITE_META.socials
+              .filter((s) => s.url.startsWith('http'))
+              .map((social) => (
+                <a
+                  href={social.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="rounded-lg border border-slate-800 bg-slate-900/60 p-2 text-slate-400 hover:border-slate-700 hover:text-cyan-400 transition-colors"
+                  aria-label={social.label}
+                  title={social.label}
+                >
+                  <span class="font-mono text-xs px-1">{social.platform}</span>
+                </a>
+              ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  const copyBtn = document.getElementById('home-copy-email-btn');
+  const toast = document.getElementById('home-copy-toast');
+  const email = copyBtn?.getAttribute('data-email') || 'igor.coseanic@icloud.com';
+
+  if (copyBtn && toast) {
+    copyBtn.addEventListener('click', async () => {
+      try {
+        await navigator.clipboard.writeText(email);
+        toast.classList.remove('hidden');
+        copyBtn.classList.add('hidden');
+        setTimeout(() => {
+          toast.classList.add('hidden');
+          copyBtn.classList.remove('hidden');
+        }, 2000);
+      } catch (err) {
+        console.error('Failed to copy email:', err);
+      }
+    });
+  }
+</script>

@@ -1,0 +1,105 @@
+---
+---
+
+<div class="rounded-2xl border border-slate-800 bg-slate-900/40 p-6 sm:p-8 lg:p-10 space-y-8">
+  <div class="space-y-2">
+    <div class="inline-flex items-center gap-2 font-mono text-xs uppercase tracking-wider text-cyan-400">
+      <span>Practical Code Audit</span>
+    </div>
+    <h3 class="text-xl sm:text-2xl font-bold tracking-tight text-slate-100">
+      AI Draft vs. Human-Engineered Production Solution
+    </h3>
+    <p class="text-sm text-slate-400 max-w-2xl leading-relaxed">
+      Why senior engineering experience remains irreplaceable: auditing an AI-generated network
+      event listener for hidden memory spikes and frame stutter.
+    </p>
+  </div>
+
+  <div class="grid grid-cols-1 gap-6 lg:grid-cols-2">
+    <!-- Left: Unaudited AI Draft -->
+    <div class="rounded-xl border border-red-500/30 bg-slate-950 p-5 space-y-4">
+      <div class="flex items-center justify-between border-b border-red-500/20 pb-3">
+        <span class="font-mono text-xs font-semibold text-red-400 flex items-center gap-1.5">
+          <span>✕</span> Unaudited AI Draft (Hidden Pitfalls)
+        </span>
+        <span class="font-mono text-[10px] text-red-400 bg-red-950/40 px-2 py-0.5 rounded border border-red-500/30">
+          Causes GC Spikes
+        </span>
+      </div>
+
+      <pre class="overflow-x-auto font-mono text-xs text-slate-300 leading-relaxed p-3 rounded bg-slate-900/90 border border-slate-800">
+<code><span class="text-slate-400">// AI generates seemingly clean C# code</span>
+<span class="text-purple-400">public void</span> <span class="text-yellow-300">ProcessIncomingTeamChat</span>(string json)
+&#123;
+    <span class="text-red-400">// PITFALL 1: Allocates new instance every call</span>
+    var msg = JsonUtility.FromJson&lt;ChatMessage&gt;(json);
+
+    <span class="text-red-400">// PITFALL 2: LINQ creates heap allocation &amp; GC pressure</span>
+    var activeUsers = _players.Where(p =&gt; p.IsOnline).ToList();
+
+    <span class="text-red-400">// PITFALL 3: String interpolation in Update loop</span>
+    Debug.Log($"Message from &#123;msg.senderId&#125;: &#123;msg.text&#125;");
+&#125;</code></pre>
+
+      <ul class="space-y-1.5 text-xs text-slate-400 pt-1">
+        <li class="flex items-start gap-1.5">
+          <span class="text-red-400 mt-0.5">•</span>
+          <span>
+            LINQ `.Where().ToList()` generates heap allocations on every incoming message packet.
+          </span>
+        </li>
+        <li class="flex items-start gap-1.5">
+          <span class="text-red-400 mt-0.5">•</span>
+          <span>
+            String interpolation inside frequent callbacks triggers garbage collector frame drops on
+            mobile.
+          </span>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Right: Human-Engineered Refinement -->
+    <div class="rounded-xl border border-emerald-500/30 bg-slate-950 p-5 space-y-4">
+      <div class="flex items-center justify-between border-b border-emerald-500/20 pb-3">
+        <span class="font-mono text-xs font-semibold text-emerald-400 flex items-center gap-1.5">
+          <span>✓</span> Human-Engineered Refinement (Zero GC)
+        </span>
+        <span class="font-mono text-[10px] text-emerald-400 bg-emerald-950/40 px-2 py-0.5 rounded border border-emerald-500/30">
+          Mobile Ready
+        </span>
+      </div>
+
+      <pre class="overflow-x-auto font-mono text-xs text-slate-300 leading-relaxed p-3 rounded bg-slate-900/90 border border-slate-800">
+<code><span class="text-slate-400">// Senior Engineer refactors for zero GC allocations</span>
+<span class="text-purple-400">public void</span> <span class="text-yellow-300">ProcessIncomingTeamChat</span>(string json)
+&#123;
+    <span class="text-emerald-400">// REFINEMENT 1: Overwrite existing cached struct</span>
+    JsonUtility.FromJsonOverwrite(json, _cachedMessage);
+
+    <span class="text-emerald-400">// REFINEMENT 2: Zero-allocation loop with reusable buffer</span>
+    _onlinePlayersBuffer.Clear();
+    <span class="text-purple-400">for</span> (<span class="text-purple-400">int</span> i = 0; i &lt; _players.Count; i++)
+        <span class="text-purple-400">if</span> (_players[i].IsOnline) _onlinePlayersBuffer.Add(_players[i]);
+
+    <span class="text-emerald-400">// REFINEMENT 3: Conditional logging stripped in release builds</span>
+    GameLog.Verbose(_cachedMessage);
+&#125;</code></pre>
+
+      <ul class="space-y-1.5 text-xs text-slate-400 pt-1">
+        <li class="flex items-start gap-1.5">
+          <span class="text-emerald-400 mt-0.5">•</span>
+          <span>
+            Zero heap allocations: reused buffer and `FromJsonOverwrite` eliminate GC pressure.
+          </span>
+        </li>
+        <li class="flex items-start gap-1.5">
+          <span class="text-emerald-400 mt-0.5">•</span>
+          <span>
+            Compiler-stripped telemetry logs ensure maximum frame stability on low-end Android
+            devices.
+          </span>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

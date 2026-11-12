@@ -1,0 +1,213 @@
+---
+import { getFeaturedProjects } from '../../utils/projects';
+
+const featuredProjects = await getFeaturedProjects();
+
+// Separate Jolly Match 3 for the prominent Hero Spotlight, and the remaining 2 for the grid
+const flagshipMatch3 = featuredProjects.find((p) => p.id === 'jolly-match-3');
+const complementaryProjects = featuredProjects.filter((p) => p.id !== 'jolly-match-3');
+---
+
+<section id="projects" class="py-20 lg:py-28" aria-labelledby="featured-projects-heading">
+  <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+    <!-- Section Header -->
+    <div class="flex flex-col justify-between gap-4 border-b border-slate-800 pb-8 sm:flex-row sm:items-end">
+      <div>
+        <div class="inline-flex items-center gap-2 font-mono text-xs uppercase tracking-wider text-cyan-400">
+          <span>01 / Selected Work</span>
+        </div>
+        <h2
+          id="featured-projects-heading"
+          class="mt-2 text-3xl font-bold tracking-tight text-slate-100 sm:text-4xl"
+        >
+          Featured Engineering Case Studies
+        </h2>
+        <p class="mt-2 max-w-2xl text-slate-400 text-base">
+          Proven commercial mobile production, decoupled software architecture, and specialized
+          technology integration.
+        </p>
+      </div>
+
+      <a
+        href="/projects"
+        class="inline-flex items-center gap-1.5 font-mono text-sm font-medium text-cyan-400 hover:text-cyan-300 transition-colors"
+      >
+        View All 5 Projects
+        <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+        </svg>
+      </a>
+    </div>
+
+    <!-- 1. Primary Flagship Spotlight: Jolly Match 3 -->
+    {flagshipMatch3 && (
+      <div class="mt-12">
+        <div class="group relative overflow-hidden rounded-2xl border border-slate-800 bg-slate-900/60 transition-all hover:border-slate-700 hover:bg-slate-900/90">
+          <div class="grid grid-cols-1 gap-8 p-6 sm:p-8 lg:grid-cols-12 lg:gap-12 lg:p-10">
+            <!-- Left Info Column -->
+            <div class="flex flex-col justify-between space-y-6 lg:col-span-7">
+              <div class="space-y-4">
+                <div class="flex flex-wrap items-center gap-2.5">
+                  <span class="rounded-full border border-emerald-500/30 bg-emerald-950/40 px-3 py-1 font-mono text-xs font-semibold text-emerald-400">
+                    Commercial Mobile Flagship
+                  </span>
+                  <span class="font-mono text-xs text-slate-400">
+                    {flagshipMatch3.data.platforms.join(' • ')}
+                  </span>
+                </div>
+
+                <h3 class="text-2xl font-bold tracking-tight text-slate-100 sm:text-3xl group-hover:text-cyan-300 transition-colors">
+                  <a href={`/projects/${flagshipMatch3.id}`}>{flagshipMatch3.data.title}</a>
+                </h3>
+
+                <p class="text-slate-300 leading-relaxed text-base">
+                  {flagshipMatch3.data.shortDescription}
+                </p>
+
+                <!-- Architectural Deep Dive Highlights -->
+                <div class="mt-4 grid grid-cols-1 gap-3 rounded-xl border border-slate-800/80 bg-slate-950/60 p-4 sm:grid-cols-2">
+                  <div class="space-y-1">
+                    <span class="font-mono text-xs font-semibold uppercase text-amber-400">
+                      ⚡ Offline Telemetry Pipeline
+                    </span>
+                    <p class="text-xs text-slate-400 leading-relaxed">
+                      1,600+ line Analytics manager with cached queue synchronizing batches upon
+                      network reconnection.
+                    </p>
+                  </div>
+
+                  <div class="space-y-1">
+                    <span class="font-mono text-xs font-semibold uppercase text-cyan-400">
+                      🌐 REST API & Firebase Backend
+                    </span>
+                    <p class="text-xs text-slate-400 leading-relaxed">
+                      Teams social messaging client, JWT auth, and Firebase RTDB/Firestore live
+                      synchronization.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Technologies & CTA -->
+              <div class="space-y-4 pt-4 border-t border-slate-800/80">
+                <div class="flex flex-wrap gap-2 text-xs font-mono">
+                  {flagshipMatch3.data.technologies.slice(0, 6).map((tech) => (
+                    <span class="rounded-md border border-slate-800 bg-slate-950/80 px-2.5 py-1 text-slate-300">
+                      {tech}
+                    </span>
+                  ))}
+                </div>
+
+                <div>
+                  <a
+                    href={`/projects/${flagshipMatch3.id}`}
+                    class="inline-flex items-center gap-2 rounded-lg bg-cyan-500 px-5 py-2.5 font-mono text-sm font-semibold text-slate-950 transition hover:bg-cyan-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400"
+                  >
+                    Read Architecture Case Study
+                    <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M14 5l7 7m0 0l-7 7m7-7H3"
+                      />
+                    </svg>
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            <!-- Right Decorative / Architecture Diagram Preview -->
+            <div class="flex flex-col justify-center lg:col-span-5">
+              <div class="rounded-xl border border-slate-800/90 bg-slate-950/80 p-5 space-y-4 font-mono text-xs">
+                <div class="flex items-center justify-between border-b border-slate-800 pb-3 text-slate-400">
+                  <span class="flex items-center gap-2">
+                    <span class="h-2 w-2 rounded-full bg-cyan-400"></span>
+                    Client-Server Architecture
+                  </span>
+                  <span class="text-[10px] text-slate-400">JollyMatch.Launcher</span>
+                </div>
+
+                <div class="space-y-2 text-[11px] text-slate-300">
+                  <div class="rounded bg-slate-900 p-2.5 border border-slate-800">
+                    <span class="text-cyan-400">Unity Client (CoreM3)</span>
+                    <p class="text-[10px] text-slate-400 mt-0.5">
+                      Gameplay loop • 60 FPS • Dynamic Difficulty
+                    </p>
+                  </div>
+                  <div class="flex justify-center text-slate-400">↓ ↑ HTTP REST / JWT / RTDB</div>
+                  <div class="rounded bg-slate-900 p-2.5 border border-slate-800">
+                    <span class="text-amber-400">TeamsApi & Cached Analytics</span>
+                    <p class="text-[10px] text-slate-400 mt-0.5">
+                      Offline queue • Batch flusher • Teams / Chat
+                    </p>
+                  </div>
+                  <div class="flex justify-center text-slate-400">↓ ↑ Cloud Services</div>
+                  <div class="rounded bg-slate-900 p-2.5 border border-slate-800">
+                    <span class="text-emerald-400">Firebase & Backend APIs</span>
+                    <p class="text-[10px] text-slate-400 mt-0.5">
+                      Auth • RTDB • Firestore • Analytics Telemetry
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    )}
+
+    <!-- 2. Complementary Projects Grid (Component Ability System & AR Language Lab) -->
+    <div class="mt-8 grid grid-cols-1 gap-8 md:grid-cols-2">
+      {complementaryProjects.map((project) => (
+        <div class="group flex flex-col justify-between rounded-xl border border-slate-800 bg-slate-900/60 p-6 sm:p-8 transition-all hover:border-slate-700 hover:bg-slate-900/80">
+          <div class="space-y-4">
+            <div class="flex flex-wrap items-center gap-2">
+              <span class="rounded-full border border-cyan-500/30 bg-cyan-950/40 px-2.5 py-0.5 font-mono text-[11px] font-semibold text-cyan-300">
+                {project.data.category === 'architecture-showcase'
+                  ? 'Architecture Showcase'
+                  : 'Augmented Reality'}
+              </span>
+              <span class="font-mono text-xs text-slate-400">
+                {project.data.platforms.join(' • ')}
+              </span>
+            </div>
+
+            <h3 class="text-xl font-bold tracking-tight text-slate-100 group-hover:text-cyan-300 transition-colors">
+              <a href={`/projects/${project.id}`}>{project.data.title}</a>
+            </h3>
+
+            <p class="text-sm text-slate-300 leading-relaxed">{project.data.shortDescription}</p>
+
+            <!-- Architecture Highlights -->
+            <ul class="space-y-1.5 pt-2 text-xs text-slate-400">
+              {project.data.architectureHighlights.slice(0, 2).map((highlight) => (
+                <li class="flex items-start gap-2">
+                  <span class="text-cyan-400 mt-0.5">▹</span>
+                  <span>{highlight}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div class="mt-6 pt-4 border-t border-slate-800/80 space-y-4">
+            <div class="flex flex-wrap gap-1.5 font-mono text-xs">
+              {project.data.technologies.slice(0, 4).map((tech) => (
+                <span class="rounded bg-slate-950/80 px-2 py-0.5 text-slate-300 border border-slate-800">
+                  {tech}
+                </span>
+              ))}
+            </div>
+
+            <a
+              href={`/projects/${project.id}`}
+              class="inline-flex items-center gap-1.5 font-mono text-xs font-semibold text-cyan-400 hover:text-cyan-300 transition-colors"
+            >
+              Read Technical Case Study →
+            </a>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

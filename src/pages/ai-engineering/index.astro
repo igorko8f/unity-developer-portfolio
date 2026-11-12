@@ -1,0 +1,267 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import WorkflowLifecycle from '../../components/ai/WorkflowLifecycle.astro';
+import CodeAuditComparison from '../../components/ai/CodeAuditComparison.astro';
+import { getAllAICaseStudies } from '../../utils/projects';
+
+const caseStudies = await getAllAICaseStudies();
+
+const pillars = [
+  {
+    number: '01',
+    title: 'AI Development Workflows & Task Decomposition',
+    description:
+      'Breaking complex systems into discrete, testable units before invoking agents. Running iterative, small verification loops rather than asking for whole monolithic features in one prompt.',
+    highlights: [
+      'Problem space decomposition into pure C# interfaces',
+      'Iterative prompting with rapid compiler feedback',
+      'Multi-step automated shell and script pipelines',
+    ],
+  },
+  {
+    number: '02',
+    title: 'Agent & Context Architecture',
+    description:
+      'Authoring comprehensive AGENTS.md rulefiles, project conventions, and memory constraints that eliminate hallucinations and enforce Unity-specific runtime best practices.',
+    highlights: [
+      'Repository context engineering and project maps',
+      'Hierarchical rulefiles and convention guidelines',
+      'Custom subagent roles with restricted, safe toolsets',
+    ],
+  },
+  {
+    number: '03',
+    title: 'Engineering Quality & Test Generation',
+    description:
+      'Using developer agents to systematically scaffold edge-case test fixtures, boundary value assertions, and state-machine transitions for pure logic layers.',
+    highlights: [
+      'Adversarial test generation for algorithmic math',
+      'Automated boundary condition and null checks',
+      'Preliminary code review and static analysis assist',
+    ],
+  },
+  {
+    number: '04',
+    title: 'Productivity & Operational Acceleration',
+    description:
+      'Eliminating repetitive boilerplate: scaffolding REST API DTOs from JSON schemas, parsing SDK documentation, and generating architectural walkthroughs.',
+    highlights: [
+      'Serialization adapters and event payload DTOs',
+      'Rapid digestion of SDK migration changelogs',
+      'Developer documentation and RFC synchronization',
+    ],
+  },
+];
+---
+
+<BaseLayout
+  title="AI-Augmented Engineering | Senior Unity Developer"
+  description="Practical, disciplined integration of LLM agents and developer tooling into the Unity game engineering lifecycle with strict human-in-the-loop verification."
+>
+  <div class="py-16 sm:py-20 lg:py-24">
+    <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 space-y-20">
+      <!-- Page Header -->
+      <header class="max-w-3xl space-y-4">
+        <div class="inline-flex items-center gap-2 font-mono text-xs uppercase tracking-wider text-emerald-400">
+          <span>Specialization Hub</span>
+        </div>
+        <h1 class="text-4xl font-bold tracking-tight text-slate-100 sm:text-5xl">
+          AI-Augmented Engineering
+        </h1>
+        <p class="text-lg text-slate-300 leading-relaxed sm:text-xl">
+          A disciplined, engineering-first approach to integrating developer agents (Antigravity,
+          Claude Code, GitHub Copilot) into the Unity game lifecycle—accelerating delivery without
+          compromising code quality, memory budgets, or architecture.
+        </p>
+
+        <!-- Positioning Boundary Badge -->
+        <div class="rounded-xl border border-slate-800 bg-slate-900/60 p-4 text-xs font-mono text-slate-300">
+          <span class="text-emerald-400 font-bold">Positioning Boundary:</span> This represents{' '}
+          <strong class="text-slate-100">AI-Augmented Software Engineering</strong> (workflow
+          automation, context engineering, automated testing). It does not claim machine learning
+          research, neural model training, or unsupervised autonomous commits.
+        </div>
+      </header>
+
+      <!-- 1. The 4 Competency Pillars -->
+      <section class="space-y-8" aria-labelledby="pillars-heading">
+        <div class="space-y-2 border-b border-slate-800 pb-4">
+          <span class="font-mono text-xs uppercase tracking-wider text-cyan-400">
+            Competency Matrix
+          </span>
+          <h2 id="pillars-heading" class="text-2xl sm:text-3xl font-bold text-slate-100">
+            Four Core Competencies
+          </h2>
+        </div>
+
+        <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
+          {pillars.map((p) => (
+            <div class="rounded-xl border border-slate-800 bg-slate-900/40 p-6 sm:p-7 space-y-4 transition hover:border-slate-700 hover:bg-slate-900/70">
+              <div class="flex items-center justify-between border-b border-slate-800/80 pb-3">
+                <span class="font-mono text-xs font-bold text-emerald-400">PILLAR {p.number}</span>
+                <span class="h-1.5 w-1.5 rounded-full bg-emerald-400"></span>
+              </div>
+
+              <h3 class="text-lg font-bold text-slate-100">{p.title}</h3>
+
+              <p class="text-xs text-slate-300 leading-relaxed">{p.description}</p>
+
+              <ul class="space-y-1.5 text-xs text-slate-400 pt-2 border-t border-slate-800/60">
+                {p.highlights.map((h) => (
+                  <li class="flex items-start gap-2">
+                    <span class="text-emerald-400 mt-0.5">▹</span>
+                    <span>{h}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <!-- 2. Human-in-the-Loop Lifecycle Diagram Component -->
+      <section aria-label="Human-in-the-loop lifecycle">
+        <WorkflowLifecycle />
+      </section>
+
+      <!-- 3. Real Code Audit Comparison Component -->
+      <section aria-label="Code audit comparison">
+        <CodeAuditComparison />
+      </section>
+
+      <!-- 4. Case Studies Section -->
+      <section class="space-y-8" aria-labelledby="case-studies-heading">
+        <div class="space-y-2 border-b border-slate-800 pb-4">
+          <span class="font-mono text-xs uppercase tracking-wider text-cyan-400">
+            Engineering Case Studies
+          </span>
+          <h2 id="case-studies-heading" class="text-2xl sm:text-3xl font-bold text-slate-100">
+            Applied AI Workflows & Verification
+          </h2>
+        </div>
+
+        <div class="grid grid-cols-1 gap-8 lg:grid-cols-2">
+          {caseStudies.map((cs) => (
+            <article class="flex flex-col justify-between rounded-xl border border-slate-800 bg-slate-900/50 p-6 sm:p-8 space-y-6">
+              <div class="space-y-4">
+                <div class="flex items-center justify-between gap-2">
+                  <span class="rounded-full border border-emerald-500/30 bg-emerald-950/40 px-2.5 py-0.5 font-mono text-[11px] font-medium text-emerald-300">
+                    {cs.data.workflowType === 'professional-practice'
+                      ? 'Professional Practice'
+                      : 'Independent Lab'}
+                  </span>
+                  <span class="font-mono text-xs text-slate-400">Case Study {cs.data.order}</span>
+                </div>
+
+                <h3 class="text-xl font-bold text-slate-100">{cs.data.title}</h3>
+
+                <p class="text-sm text-slate-300 leading-relaxed">{cs.data.subtitle}</p>
+
+                <!-- Problem Statement -->
+                <div class="rounded-lg bg-slate-950/80 p-3.5 border border-slate-800 text-xs space-y-1">
+                  <span class="font-mono text-[10px] uppercase tracking-wider text-amber-400 font-semibold block">
+                    Problem Addressed:
+                  </span>
+                  <p class="text-slate-300 leading-relaxed">{cs.data.problemStatement}</p>
+                </div>
+
+                <!-- Human Validation Method -->
+                <div class="space-y-1 text-xs">
+                  <span class="font-mono text-[10px] uppercase tracking-wider text-cyan-400 font-semibold block">
+                    Human Validation Protocol:
+                  </span>
+                  <p class="text-slate-400 leading-relaxed">{cs.data.humanValidationMethod}</p>
+                </div>
+
+                <!-- Verified Outcomes -->
+                <div class="space-y-1.5 text-xs text-slate-300 pt-2 border-t border-slate-800">
+                  <span class="font-mono text-[10px] uppercase tracking-wider text-emerald-400 font-semibold block">
+                    Measurable Outcomes:
+                  </span>
+                  <ul class="space-y-1">
+                    {cs.data.outcomes.map((out) => (
+                      <li class="flex items-start gap-1.5">
+                        <span class="text-emerald-400">✓</span>
+                        <span>{out}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+
+              <div class="pt-4 border-t border-slate-800 flex flex-wrap items-center justify-between gap-2 text-xs font-mono">
+                <div class="flex flex-wrap gap-1.5">
+                  {cs.data.aiToolsUsed.map((tool) => (
+                    <span class="rounded bg-slate-950 px-2 py-0.5 text-slate-400 border border-slate-800">
+                      {tool}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <!-- 5. Commercial vs. Lab Context Breakdown Table -->
+      <section class="rounded-2xl border border-slate-800 bg-slate-900/30 p-6 sm:p-8 space-y-6">
+        <h2 class="text-xl font-bold text-slate-100">
+          Context Transparency: Commercial vs. Independent Practice
+        </h2>
+
+        <p class="text-xs text-slate-400 leading-relaxed max-w-3xl">
+          To maintain strict professional integrity and prevent ungrounded claims, we clearly
+          delineate where each AI-assisted workflow is deployed:
+        </p>
+
+        <div class="overflow-x-auto">
+          <table class="w-full text-left font-mono text-xs border-collapse">
+            <thead>
+              <tr class="border-b border-slate-800 text-slate-400">
+                <th class="py-3 px-4 font-semibold">Workflow Domain</th>
+                <th class="py-3 px-4 font-semibold text-emerald-400">
+                  Commercial Production Usage
+                </th>
+                <th class="py-3 px-4 font-semibold text-cyan-400">Independent Lab R&D</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-800/60 text-slate-300">
+              <tr>
+                <td class="py-3 px-4 font-bold text-slate-200">SDK Research & Migration</td>
+                <td class="py-3 px-4">
+                  Rapid changelog parsing, deprecation analysis, and API wrapper drafting.
+                </td>
+                <td class="py-3 px-4">Multi-agent API orchestration experiments.</td>
+              </tr>
+              <tr>
+                <td class="py-3 px-4 font-bold text-slate-200">Crash & Log Triage</td>
+                <td class="py-3 px-4">
+                  Firebase Crashlytics stack trace analysis to accelerate reproduction steps.
+                </td>
+                <td class="py-3 px-4">Synthetic stress-test harness generation.</td>
+              </tr>
+              <tr>
+                <td class="py-3 px-4 font-bold text-slate-200">Test Generation</td>
+                <td class="py-3 px-4">
+                  Utility and math calculation test drafting within company IP guidelines.
+                </td>
+                <td class="py-3 px-4">
+                  Full adversarial NUnit test suite synthesis across domain state machines.
+                </td>
+              </tr>
+              <tr>
+                <td class="py-3 px-4 font-bold text-slate-200">Context Rules (AGENTS.md)</td>
+                <td class="py-3 px-4">
+                  Internal team guidelines on memory, GC budgets, and PR standards.
+                </td>
+                <td class="py-3 px-4">
+                  Complete custom agent architectures and task execution rules.
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </div>
+  </div>
+</BaseLayout>

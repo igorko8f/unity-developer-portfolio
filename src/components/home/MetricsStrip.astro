@@ -1,0 +1,43 @@
+---
+const metrics = [
+  {
+    value: '6+',
+    label: 'Years Commercial Experience',
+    description: 'Commercial game development across Mobile (iOS/Android), Web & PC.',
+  },
+  {
+    value: '1M+',
+    label: 'Live Product Downloads',
+    description: 'Shipped live games with Firebase, analytics, monetization & continuous LiveOps.',
+  },
+  {
+    value: '12',
+    label: 'Specialists Coordinated',
+    description: 'Technical architecture, sprint planning, code reviews, and developer mentorship.',
+  },
+  {
+    value: 'AI-Augmented',
+    label: 'Agentic Engineering Discipline',
+    description: 'Context engineering, task decomposition, and automated regression testing.',
+  },
+];
+---
+
+<section
+  class="border-y border-slate-800/80 bg-slate-900/40 py-10"
+  aria-label="Key Impact Highlights"
+>
+  <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+    <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+      {metrics.map((m) => (
+        <div class="flex flex-col rounded-lg border border-slate-800/80 bg-slate-950/60 p-5 transition hover:border-slate-700">
+          <span class="font-mono text-2xl font-bold tracking-tight text-cyan-400 sm:text-3xl">
+            {m.value}
+          </span>
+          <span class="mt-1 font-semibold text-slate-200 text-sm">{m.label}</span>
+          <span class="mt-1.5 text-xs text-slate-400 leading-relaxed">{m.description}</span>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
