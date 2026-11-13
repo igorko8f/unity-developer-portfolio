@@ -1,0 +1,25 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Hero from '../../components/home/Hero.astro';
+import MetricsStrip from '../../components/home/MetricsStrip.astro';
+import FeaturedProjects from '../../components/home/FeaturedProjects.astro';
+import EngineeringPillars from '../../components/home/EngineeringPillars.astro';
+import AISpotlight from '../../components/home/AISpotlight.astro';
+import ExperiencePreview from '../../components/home/ExperiencePreview.astro';
+import ContactSection from '../../components/home/ContactSection.astro';
+import { getSiteMeta } from '../../data/site-meta';
+import { resolveLocale } from '../../i18n';
+
+const locale = resolveLocale(Astro.currentLocale);
+const siteMeta = getSiteMeta(locale);
+---
+
+<BaseLayout title={siteMeta.title} description={siteMeta.description}>
+  <Hero />
+  <MetricsStrip />
+  <FeaturedProjects />
+  <EngineeringPillars />
+  <AISpotlight />
+  <ExperiencePreview />
+  <ContactSection />
+</BaseLayout>

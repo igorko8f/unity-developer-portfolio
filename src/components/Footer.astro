@@ -1,5 +1,12 @@
 ---
-import { SITE_META } from '../data/site-meta';
+import { getSiteMeta } from '../data/site-meta';
+import { localizePath, resolveLocale } from '../i18n';
+import { getUI } from '../i18n/ui';
+
+const locale = resolveLocale(Astro.currentLocale);
+const siteMeta = getSiteMeta(locale);
+const ui = getUI(locale);
+const homeHref = localizePath('/', locale);
 ---
 
 <footer class="mt-auto border-t border-slate-800/80 bg-slate-950/90 py-12">
@@ -13,35 +20,32 @@ import { SITE_META } from '../data/site-meta';
             <span class="relative inline-flex h-2.5 w-2.5 rounded-full bg-emerald-500"></span>
           </span>
           <span class="font-mono text-xs font-medium text-emerald-400">
-            {SITE_META.status.label}
+            {siteMeta.status.label}
           </span>
-          <span class="text-xs text-slate-400">• {SITE_META.status.sublabel}</span>
+          <span class="text-xs text-slate-400">• {siteMeta.status.sublabel}</span>
         </div>
 
-        <p class="max-w-md text-sm text-slate-400 leading-relaxed">
-          Senior / Lead Unity Developer specializing in commercial mobile games, decoupled software
-          architecture, Firebase / REST backend integration, and AI-assisted development workflows.
-        </p>
+        <p class="max-w-md text-sm text-slate-400 leading-relaxed">{ui.footer.bio}</p>
 
         <!-- Direct Email Interaction -->
         <div class="pt-2">
           <div class="inline-flex items-center gap-2 rounded-lg border border-slate-800 bg-slate-900/80 px-3 py-1.5 font-mono text-xs">
-            <span class="text-slate-400">Direct Email:</span>
-            <a href={`mailto:${SITE_META.email}`} class="text-cyan-400 hover:underline">
-              {SITE_META.email}
+            <span class="text-slate-400">{ui.footer.directEmail}</span>
+            <a href={`mailto:${siteMeta.email}`} class="text-cyan-400 hover:underline">
+              {siteMeta.email}
             </a>
             <button
               id="copy-email-btn"
               type="button"
-              data-email={SITE_META.email}
+              data-email={siteMeta.email}
               class="ml-1 rounded px-1.5 py-0.5 text-[11px] text-slate-300 hover:bg-slate-800 hover:text-slate-100 focus:outline-none focus:ring-1 focus:ring-cyan-400"
-              title="Copy email to clipboard"
-              aria-label="Copy email address"
+              title={ui.footer.copyTitle}
+              aria-label={ui.footer.copyAria}
             >
-              Copy
+              {ui.footer.copy}
             </button>
             <span id="copy-toast" class="hidden text-[11px] text-emerald-400 font-semibold">
-              Copied!
+              {ui.footer.copied}
             </span>
           </div>
         </div>
@@ -50,15 +54,15 @@ import { SITE_META } from '../data/site-meta';
       <!-- Center Column: Quick Navigation -->
       <div class="space-y-3 md:col-span-3">
         <h3 class="font-mono text-xs font-semibold uppercase tracking-wider text-slate-300">
-          Navigation
+          {ui.footer.navigationHeading}
         </h3>
         <ul class="space-y-2 text-sm">
           <li>
-            <a href="/" class="text-slate-400 hover:text-cyan-400 transition-colors">
-              Home
+            <a href={homeHref} class="text-slate-400 hover:text-cyan-400 transition-colors">
+              {ui.nav.home}
             </a>
           </li>
-          {SITE_META.nav.map((item) => (
+          {siteMeta.nav.map((item) => (
             <li>
               <a href={item.href} class="text-slate-400 hover:text-cyan-400 transition-colors">
                 {item.label}
@@ -71,10 +75,10 @@ import { SITE_META } from '../data/site-meta';
       <!-- Right Column: Connect & Profiles -->
       <div class="space-y-3 md:col-span-3">
         <h3 class="font-mono text-xs font-semibold uppercase tracking-wider text-slate-300">
-          Profiles & Links
+          {ui.footer.profilesHeading}
         </h3>
         <ul class="space-y-2 text-sm">
-          {SITE_META.socials.map((link) => (
+          {siteMeta.socials.map((link) => (
             <li>
               <a
                 href={link.url}
@@ -108,11 +112,9 @@ import { SITE_META } from '../data/site-meta';
     <!-- Bottom Bar -->
     <div class="mt-12 flex flex-col items-center justify-between gap-4 border-t border-slate-800/80 pt-8 text-xs text-slate-400 sm:flex-row">
       <p>
-        © {new Date().getFullYear()} {SITE_META.developerName}. Built for high performance.
+        © {new Date().getFullYear()} {siteMeta.developerName}. {ui.footer.copyrightSuffix}
       </p>
-      <p class="font-mono text-[11px] text-slate-400">
-        Static HTML/CSS • Astro 7 & Tailwind 4 • Zero Framework JS Overhead
-      </p>
+      <p class="font-mono text-[11px] text-slate-400">{ui.footer.techBadge}</p>
     </div>
   </div>
 </footer>

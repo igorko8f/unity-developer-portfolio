@@ -1,0 +1,336 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getSiteMeta } from '../../data/site-meta';
+import { getWorkExperience, getEducation, getLanguages } from '../../data/experience';
+import { getAllProjects } from '../../utils/projects';
+import { localizePath, resolveLocale } from '../../i18n';
+import { getUI } from '../../i18n/ui';
+
+const locale = resolveLocale(Astro.currentLocale);
+const ui = getUI(locale);
+const siteMeta = getSiteMeta(locale);
+const experiences = getWorkExperience(locale);
+const education = getEducation(locale);
+const languages = getLanguages(locale);
+const projects = await getAllProjects(locale);
+---
+
+<BaseLayout
+  title={`${ui.cvPage.metaTitleSuffix} — ${siteMeta.developerName} | Senior Unity Developer`}
+  description={ui.cvPage.metaDescription}
+>
+  <!-- Print Controls Banner (Screen Only) -->
+  <div class="no-print border-b border-slate-800 bg-slate-900/80 py-4 backdrop-blur-md sticky top-16 z-30">
+    <div class="mx-auto flex max-w-4xl items-center justify-between px-4 sm:px-6">
+      <div class="flex items-center gap-2 text-xs font-mono text-slate-300">
+        <span class="h-2 w-2 rounded-full bg-emerald-400"></span>
+        <span>{ui.cvPage.printBannerLabel}</span>
+      </div>
+
+      <div class="flex items-center gap-3">
+        <button
+          id="print-cv-btn"
+          type="button"
+          class="inline-flex items-center gap-1.5 rounded-lg bg-cyan-500 px-4 py-2 font-mono text-xs font-semibold text-slate-950 transition hover:bg-cyan-400 focus:outline-none focus:ring-2 focus:ring-cyan-400"
+        >
+          <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"
+            />
+          </svg>
+          <span>{ui.cvPage.printButton}</span>
+        </button>
+
+        <a
+          href={localizePath('/experience', locale)}
+          class="rounded-lg border border-slate-700 bg-slate-800 px-3 py-2 font-mono text-xs text-slate-300 hover:text-slate-100 transition"
+        >
+          {ui.cvPage.backToTimeline}
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Resume Sheet Container -->
+  <div class="py-12 sm:py-16">
+    <div
+      id="resume-document"
+      class="resume-sheet mx-auto max-w-4xl rounded-2xl border border-slate-800 bg-slate-900/60 p-8 sm:p-12 space-y-10 shadow-2xl transition"
+    >
+      <!-- Resume Header -->
+      <header class="border-b border-slate-800 pb-8 space-y-4">
+        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-5">
+          <div class="flex items-center gap-5">
+            <div class="relative h-20 w-20 sm:h-24 sm:w-24 shrink-0 overflow-hidden rounded-full border-2 border-slate-700 ring-2 ring-cyan-500/30 shadow-xl print:border-slate-400 print:ring-0">
+              <img
+                src="/images/avatar.webp"
+                alt={ui.cvPage.photoAlt}
+                width="96"
+                height="96"
+                class="h-full w-full object-cover"
+                loading="eager"
+              />
+            </div>
+            <div>
+              <h1 class="text-3xl sm:text-4xl font-bold tracking-tight text-slate-100 resume-title">
+                {siteMeta.developerName}
+              </h1>
+              <p class="font-mono text-sm sm:text-base text-cyan-400 mt-0.5 font-semibold">
+                {ui.cvPage.roleHeading}
+              </p>
+              <span class="inline-block font-mono text-xs font-semibold text-emerald-400 mt-1">
+                {ui.cvPage.yearsExp}
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <p class="text-xs sm:text-sm text-slate-300">{ui.cvPage.specializationLine}</p>
+
+        <!-- Contact & Meta Strip -->
+        <div class="flex flex-wrap items-center gap-y-2 gap-x-4 pt-2 font-mono text-xs text-slate-400 resume-contact">
+          <a
+            href={`mailto:${siteMeta.email}`}
+            class="text-slate-300 hover:text-cyan-400 transition-colors"
+          >
+            {siteMeta.email}
+          </a>
+          {siteMeta.phone && (
+            <>
+              <span>•</span>
+              <a
+                href={`tel:${siteMeta.phone}`}
+                class="text-slate-300 hover:text-cyan-400 transition-colors"
+              >
+                {siteMeta.phone}
+              </a>
+            </>
+          )}
+          {siteMeta.location && (
+            <>
+              <span>•</span>
+              <span class="text-slate-300">{siteMeta.location}</span>
+            </>
+          )}
+          <span>•</span>
+          <a
+            href="https://www.linkedin.com/in/igor-coseanic-unity"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="text-slate-300 hover:text-cyan-400 transition-colors"
+          >
+            linkedin.com/in/igor-coseanic-unity
+          </a>
+          <span>•</span>
+          <a
+            href="https://github.com/igorko8f"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="text-slate-300 hover:text-cyan-400 transition-colors"
+          >
+            github.com/igorko8f
+          </a>
+        </div>
+      </header>
+
+      <!-- Executive Profile Summary -->
+      <section class="space-y-3">
+        <h2 class="font-mono text-xs uppercase tracking-wider text-cyan-400 font-bold section-title">
+          {ui.cvPage.summaryHeading}
+        </h2>
+        <p class="text-sm text-slate-300 leading-relaxed">{ui.cvPage.summaryText}</p>
+      </section>
+
+      <!-- Core Competencies Matrix -->
+      <section class="space-y-3">
+        <h2 class="font-mono text-xs uppercase tracking-wider text-cyan-400 font-bold section-title">
+          {ui.cvPage.competenciesHeading}
+        </h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 text-xs">
+          {ui.cvPage.competencyGroups.map((group) => (
+            <div class="space-y-1">
+              <span class="font-semibold text-slate-200">{group.label}</span>
+              <p class="text-slate-400">{group.items}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <!-- Commercial Work Experience -->
+      <section class="space-y-6">
+        <h2 class="font-mono text-xs uppercase tracking-wider text-cyan-400 font-bold section-title">
+          {ui.cvPage.workHistoryHeading}
+        </h2>
+
+        <div class="space-y-6">
+          {experiences.map((exp) => (
+            <div class="space-y-2 border-l-2 border-slate-800 pl-4 print:border-slate-300">
+              <div class="flex flex-col sm:flex-row sm:items-baseline sm:justify-between">
+                <h3 class="font-bold text-slate-100 text-base">
+                  {exp.role} <span class="font-normal text-slate-400">— {exp.company}</span>
+                </h3>
+                <span class="font-mono text-xs text-slate-400">
+                  {exp.period.start} — {exp.period.end} ({exp.location}
+                  {exp.remote ? ` • ${ui.cvPage.remoteLabel}` : ''})
+                </span>
+              </div>
+
+              <p class="text-xs text-slate-300 italic">{exp.shortSummary}</p>
+
+              <ul class="space-y-1 text-xs text-slate-400 pt-1">
+                {exp.responsibilities.map((resp) => (
+                  <li class="flex items-start gap-1.5">
+                    <span class="text-cyan-400 mt-0.5">•</span>
+                    <span>{resp}</span>
+                  </li>
+                ))}
+                {exp.leadershipAndMentoring.map((lead) => (
+                  <li class="flex items-start gap-1.5">
+                    <span class="text-emerald-400 mt-0.5">•</span>
+                    <span>{lead}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <!-- Live Shipped Products (from CV) -->
+      <section class="space-y-4">
+        <h2 class="font-mono text-xs uppercase tracking-wider text-cyan-400 font-bold section-title">
+          {ui.cvPage.commercialHighlightHeading}
+        </h2>
+
+        <div class="grid grid-cols-1 gap-4 text-xs">
+          <div class="rounded-lg border border-slate-800 p-4 space-y-1.5 bg-slate-950/60 print:border-slate-300 print:bg-transparent">
+            <div class="flex flex-wrap items-center justify-between gap-2">
+              <h3 class="font-bold text-slate-100 text-sm">{ui.cvPage.match3Title}</h3>
+              <span class="font-mono text-[11px] text-emerald-400 font-semibold">
+                {ui.cvPage.match3Badge}
+              </span>
+            </div>
+            <p class="text-[11px] text-slate-400 font-mono">{ui.cvPage.match3Meta}</p>
+            <p class="text-slate-300 text-xs leading-relaxed">{ui.cvPage.match3Description}</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Key Project Case Studies -->
+      <section class="space-y-4">
+        <h2 class="font-mono text-xs uppercase tracking-wider text-cyan-400 font-bold section-title">
+          {ui.cvPage.selectedProjectsHeading}
+        </h2>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
+          {projects.map((proj) => (
+            <div class="rounded-lg border border-slate-800 p-3.5 space-y-1.5 bg-slate-950/60 print:border-slate-300 print:bg-transparent">
+              <div class="flex items-center justify-between">
+                <h3 class="font-bold text-slate-100">{proj.data.title}</h3>
+                <span class="font-mono text-[10px] text-slate-400">
+                  {proj.data.platforms.join(', ')}
+                </span>
+              </div>
+              <p class="text-slate-400 text-[11px] leading-relaxed">{proj.data.shortDescription}</p>
+              <div class="font-mono text-[10px] text-cyan-400">
+                {proj.data.technologies.slice(0, 4).join(' • ')}
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <!-- Education & Languages -->
+      <section class="grid grid-cols-1 sm:grid-cols-2 gap-6 pt-2">
+        <!-- Education -->
+        <div class="space-y-3">
+          <h2 class="font-mono text-xs uppercase tracking-wider text-cyan-400 font-bold section-title">
+            {ui.cvPage.educationHeading}
+          </h2>
+          <div class="space-y-1 text-xs">
+            <h3 class="font-bold text-slate-100">{education.institution}</h3>
+            <p class="text-slate-300 font-medium">
+              {education.degree}, {education.field}
+            </p>
+            <p class="font-mono text-[11px] text-slate-400">
+              {education.graduationDate} | {education.location}
+            </p>
+          </div>
+        </div>
+
+        <!-- Languages -->
+        <div class="space-y-3">
+          <h2 class="font-mono text-xs uppercase tracking-wider text-cyan-400 font-bold section-title">
+            {ui.cvPage.languagesHeading}
+          </h2>
+          <div class="flex flex-wrap gap-2 text-xs">
+            {languages.map((lang) => (
+              <div class="rounded-lg border border-slate-800 bg-slate-950/60 px-3 py-1.5 print:border-slate-300">
+                <span class="font-semibold text-slate-200">{lang.language}:</span>{' '}
+                <span class="text-slate-400 font-mono">{lang.proficiency}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  @media print {
+    :global(html),
+    :global(body) {
+      background: #ffffff !important;
+      color: #0f172a !important;
+    }
+
+    :global(body > header),
+    :global(body > footer),
+    .no-print {
+      display: none !important;
+    }
+
+    .resume-sheet {
+      border: none !important;
+      background: transparent !important;
+      box-shadow: none !important;
+      padding: 0 !important;
+      max-width: 100% !important;
+      color: #0f172a !important;
+    }
+
+    .resume-title,
+    h2,
+    h3,
+    h4 {
+      color: #0f172a !important;
+    }
+
+    .resume-contact a,
+    .resume-contact span,
+    p,
+    li,
+    span {
+      color: #1e293b !important;
+    }
+
+    .section-title {
+      color: #0369a1 !important;
+      border-bottom: 1px solid #cbd5e1 !important;
+      padding-bottom: 4px;
+    }
+  }
+</style>
+
+<script>
+  const printBtn = document.getElementById('print-cv-btn');
+  if (printBtn) {
+    printBtn.addEventListener('click', () => {
+      window.print();
+    });
+  }
+</script>

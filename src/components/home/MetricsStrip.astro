@@ -1,36 +1,18 @@
 ---
-const metrics = [
-  {
-    value: '6+ Years',
-    label: 'Commercial Unity Experience',
-    description: 'Production game development across Mobile (iOS/Android), PC, and WebGL.',
-  },
-  {
-    value: 'Mobile & LiveOps',
-    label: 'Performance & Telemetry',
-    description:
-      'Profiling-driven frame pacing, allocation-conscious hot paths, and Firebase telemetry.',
-  },
-  {
-    value: '5 Platforms',
-    label: 'Cross-Platform Delivery',
-    description: 'Unity builds delivered across iOS, Android, PC, WebGL, and Augmented Reality.',
-  },
-  {
-    value: 'Lead & QA',
-    label: 'Architecture & Automated Testing',
-    description: 'Code review leadership, AltTester regression suites, and CI/CD pipelines.',
-  },
-];
+import { resolveLocale } from '../../i18n';
+import { getUI } from '../../i18n/ui';
+
+const locale = resolveLocale(Astro.currentLocale);
+const ui = getUI(locale);
 ---
 
 <section
   class="border-y border-slate-800/80 bg-slate-900/40 py-10"
-  aria-label="Key Impact Highlights"
+  aria-label={ui.metrics.ariaLabel}
 >
   <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
     <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
-      {metrics.map((m) => (
+      {ui.metrics.items.map((m) => (
         <div class="flex flex-col rounded-lg border border-slate-800/80 bg-slate-950/60 p-5 transition hover:border-slate-700">
           <span class="font-mono text-2xl font-bold tracking-tight text-cyan-400 sm:text-3xl">
             {m.value}

@@ -1,17 +1,17 @@
 ---
 import { render } from 'astro:content';
 import ProjectLayout from '../../layouts/ProjectLayout.astro';
-import { getAllProjects, type ProjectEntry } from '../../utils/projects';
+import { getAllProjects, getProjectSlug, type ProjectEntry } from '../../utils/projects';
 
 export async function getStaticPaths() {
-  const projects = await getAllProjects();
+  const projects = await getAllProjects('en');
 
   return projects.map((project, index) => {
     const prevProject = index > 0 ? projects[index - 1] : undefined;
     const nextProject = index < projects.length - 1 ? projects[index + 1] : undefined;
 
     return {
-      params: { slug: project.id },
+      params: { slug: getProjectSlug(project) },
       props: { project, prevProject, nextProject },
     };
   });

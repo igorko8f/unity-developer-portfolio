@@ -1,5 +1,7 @@
 ---
 import type { ProjectEntry } from '../../utils/projects';
+import { resolveLocale } from '../../i18n';
+import { getUI } from '../../i18n/ui';
 
 interface Props {
   project: ProjectEntry;
@@ -7,6 +9,8 @@ interface Props {
 
 const { project } = Astro.props;
 const { data } = project;
+const locale = resolveLocale(Astro.currentLocale);
+const ui = getUI(locale);
 
 const videos = [
   ...(data.video?.src ? [data.video] : []),
@@ -27,12 +31,15 @@ const hasGallery = galleryItems.length > 0;
         class="font-mono text-xs uppercase tracking-wider text-cyan-400 flex items-center gap-2"
       >
         <span class="h-2 w-2 rounded-full bg-cyan-400"></span>
-        <span>Gameplay Video & Visual Showcase</span>
+        <span>{ui.projectCommon.mediaShowcaseHeading}</span>
       </h2>
       <span class="font-mono text-[11px] text-slate-400">
-        {hasVideo && (videos.length === 1 ? '1 Gameplay Video' : `${videos.length} Demo Videos`)}
+        {hasVideo &&
+          (videos.length === 1
+            ? ui.projectCommon.oneVideo
+            : `${videos.length} ${ui.projectCommon.demoVideos}`)}
         {hasVideo && hasGallery && ' • '}
-        {hasGallery && `${galleryItems.length} Screenshots`}
+        {hasGallery && `${galleryItems.length} ${ui.projectCommon.screenshots}`}
       </span>
     </div>
 
@@ -45,7 +52,7 @@ const hasGallery = galleryItems.length > 0;
               <div class="flex min-w-0 flex-1 items-center gap-2 text-slate-200">
                 <span class="inline-flex h-2 w-2 shrink-0 rounded-full bg-emerald-400"></span>
                 <span class="font-semibold truncate">
-                  {videoItem.title ?? `${data.title} — Gameplay Showcase`}
+                  {videoItem.title ?? `${data.title} — ${ui.projectCommon.videoFallbackTitle}`}
                 </span>
               </div>
               <span class="shrink-0 rounded border border-slate-700 bg-slate-950 px-2 py-0.5 text-[10px] text-cyan-300">
@@ -62,7 +69,7 @@ const hasGallery = galleryItems.length > 0;
                 poster={videoItem.poster ?? data.coverImage}
               >
                 <source src={videoItem.src} type="video/mp4" />
-                Your browser does not support HTML5 video playback.
+                {ui.projectCommon.videoUnsupported}
               </video>
             </div>
 
@@ -81,9 +88,11 @@ const hasGallery = galleryItems.length > 0;
       <div class="space-y-3">
         <div class="flex items-center justify-between">
           <h3 class="font-mono text-xs uppercase tracking-wider text-slate-400">
-            Mobile Gameplay & LiveOps Screens
+            {ui.projectCommon.mobileScreensHeading}
           </h3>
-          <span class="font-mono text-[11px] text-slate-400">Click any screen to enlarge</span>
+          <span class="font-mono text-[11px] text-slate-400">
+            {ui.projectCommon.clickToEnlarge}
+          </span>
         </div>
 
         <div class="grid grid-cols-2 gap-4 sm:grid-cols-3">
@@ -95,7 +104,7 @@ const hasGallery = galleryItems.length > 0;
                 data-full-src={item.src}
                 data-full-alt={item.alt}
                 data-full-caption={item.caption ?? item.alt}
-                aria-label={`View full size image: ${item.caption ?? item.alt}`}
+                aria-label={`${ui.projectCommon.viewFullSizePrefix} ${item.caption ?? item.alt}`}
               >
                 <img
                   src={item.src}
@@ -105,7 +114,7 @@ const hasGallery = galleryItems.length > 0;
                   class="aspect-[9/19.5] w-full object-cover transition-transform duration-300 group-hover:scale-[1.02]"
                 />
                 <span class="pointer-events-none absolute top-2.5 right-2.5 rounded-md border border-slate-700/80 bg-slate-950/80 px-2 py-1 font-mono text-[10px] text-slate-200 opacity-0 backdrop-blur-sm transition-opacity group-hover:opacity-100">
-                  Expand ⤢
+                  {ui.projectCommon.expand}
                 </span>
               </button>
               {item.caption && (
@@ -123,7 +132,7 @@ const hasGallery = galleryItems.length > 0;
     {landscapeItems.length > 0 && (
       <div class="space-y-3">
         <h3 class="font-mono text-xs uppercase tracking-wider text-slate-400">
-          Key Art & Feature Highlights
+          {ui.projectCommon.keyArtHeading}
         </h3>
 
         <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
@@ -135,7 +144,7 @@ const hasGallery = galleryItems.length > 0;
                 data-full-src={item.src}
                 data-full-alt={item.alt}
                 data-full-caption={item.caption ?? item.alt}
-                aria-label={`View full size image: ${item.caption ?? item.alt}`}
+                aria-label={`${ui.projectCommon.viewFullSizePrefix} ${item.caption ?? item.alt}`}
               >
                 <img
                   src={item.src}
@@ -145,7 +154,7 @@ const hasGallery = galleryItems.length > 0;
                   class="aspect-video w-full object-cover transition-transform duration-300 group-hover:scale-[1.02]"
                 />
                 <span class="pointer-events-none absolute top-2.5 right-2.5 rounded-md border border-slate-700/80 bg-slate-950/80 px-2 py-1 font-mono text-[10px] text-slate-200 opacity-0 backdrop-blur-sm transition-opacity group-hover:opacity-100">
-                  Expand ⤢
+                  {ui.projectCommon.expand}
                 </span>
               </button>
               {item.caption && (
@@ -163,7 +172,7 @@ const hasGallery = galleryItems.length > 0;
     <dialog
       id="project-media-lightbox"
       class="m-auto max-h-[92vh] max-w-[92vw] rounded-2xl border border-slate-700 bg-slate-950 p-0 text-slate-100 shadow-2xl backdrop:bg-slate-950/85 backdrop:backdrop-blur-xs"
-      aria-label="Full size screenshot viewer"
+      aria-label={ui.projectCommon.lightboxAria}
     >
       <div class="flex flex-col max-h-[90vh]">
         <div class="flex items-center justify-between gap-4 border-b border-slate-800 bg-slate-900 px-4 py-3">
@@ -176,7 +185,7 @@ const hasGallery = galleryItems.length > 0;
             id="lightbox-close"
             class="rounded-lg border border-slate-700 bg-slate-800 px-2.5 py-1 font-mono text-xs text-slate-200 hover:border-cyan-400 hover:text-cyan-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400"
           >
-            Close [ESC]
+            {ui.projectCommon.closeEsc}
           </button>
         </div>
         <div class="flex items-center justify-center overflow-auto p-4 bg-slate-950">

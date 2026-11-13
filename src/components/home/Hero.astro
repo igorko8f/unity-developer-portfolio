@@ -1,7 +1,13 @@
 ---
 import { Image } from 'astro:assets';
 import fujiBg from '../../assets/fuji-bg.jpg';
-import { SITE_META } from '../../data/site-meta';
+import { getSiteMeta } from '../../data/site-meta';
+import { localizePath, resolveLocale } from '../../i18n';
+import { getUI } from '../../i18n/ui';
+
+const locale = resolveLocale(Astro.currentLocale);
+const siteMeta = getSiteMeta(locale);
+const ui = getUI(locale);
 ---
 
 <section
@@ -40,7 +46,7 @@ import { SITE_META } from '../../data/site-meta';
             <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75"></span>
             <span class="relative inline-flex h-2 w-2 rounded-full bg-emerald-500"></span>
           </span>
-          <span>{SITE_META.status.label}</span>
+          <span>{siteMeta.status.label}</span>
         </div>
 
         <!-- Main Heading -->
@@ -48,28 +54,23 @@ import { SITE_META } from '../../data/site-meta';
           id="hero-heading"
           class="text-4xl font-bold tracking-tight text-slate-100 sm:text-5xl lg:text-5xl xl:text-6xl"
         >
-          Building scalable{' '}
+          {ui.hero.headingPrefix}{' '}
           <span class="bg-gradient-to-r from-cyan-400 via-teal-300 to-emerald-400 bg-clip-text text-transparent">
-            Unity game architectures
+            {ui.hero.headingHighlight}
           </span>{' '}
-          &amp; connected live systems.
+          {ui.hero.headingSuffix}
         </h1>
 
         <!-- Description -->
-        <p class="text-base text-slate-400 leading-relaxed sm:text-lg">
-          Senior / Lead Unity Developer with 6+ years of commercial experience across mobile, PC,
-          and WebGL. I specialize in decoupled gameplay systems, resilient Firebase &amp; REST
-          telemetry pipelines, mobile performance profiling, and technical team leadership—and yes,
-          I&apos;m also a big Naruto fan.
-        </p>
+        <p class="text-base text-slate-400 leading-relaxed sm:text-lg">{ui.hero.description}</p>
 
         <!-- Action Buttons -->
         <div class="flex flex-wrap items-center gap-4 pt-2">
           <a
-            href="/projects"
+            href={localizePath('/projects', locale)}
             class="inline-flex items-center justify-center gap-2 rounded-lg bg-cyan-500 px-5 py-3 font-mono text-sm font-semibold text-slate-950 shadow-lg shadow-cyan-500/20 transition hover:bg-cyan-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400"
           >
-            Explore Projects
+            {ui.hero.exploreProjects}
             <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path
                 stroke-linecap="round"
@@ -81,47 +82,37 @@ import { SITE_META } from '../../data/site-meta';
           </a>
 
           <a
-            href="/cv"
+            href={localizePath('/cv', locale)}
             class="inline-flex items-center justify-center gap-2 rounded-lg border border-slate-700 bg-slate-900/80 px-5 py-3 font-mono text-sm font-medium text-slate-200 transition hover:border-slate-500 hover:text-slate-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400"
           >
-            View Resume / CV
+            {ui.hero.viewCv}
           </a>
 
           <a
             href="#contact"
             class="inline-flex items-center justify-center font-mono text-sm text-slate-400 transition hover:text-cyan-400 px-3 py-3"
           >
-            Get in Touch ↓
+            {ui.hero.getInTouch}
           </a>
         </div>
 
         <!-- Core Technologies Strip -->
         <div class="pt-6 border-t border-slate-800/80">
           <p class="font-mono text-xs uppercase tracking-wider text-slate-400 mb-3">
-            Core Engineering Competencies
+            {ui.hero.competenciesTitle}
           </p>
           <div class="flex flex-wrap gap-2 text-xs font-mono">
-            <span class="rounded-md border border-slate-800 bg-slate-900/60 px-2.5 py-1 text-slate-300">
-              Unity • iOS / Android / PC / WebGL
-            </span>
-            <span class="rounded-md border border-cyan-500/30 bg-cyan-950/30 px-2.5 py-1 text-cyan-300">
-              Firebase &amp; REST APIs
-            </span>
-            <span class="rounded-md border border-amber-500/30 bg-amber-950/30 px-2.5 py-1 text-amber-300">
-              Custom Telemetry &amp; Caching
-            </span>
-            <span class="rounded-md border border-slate-800 bg-slate-900/60 px-2.5 py-1 text-slate-300">
-              MVX &amp; SOLID Architecture
-            </span>
-            <span class="rounded-md border border-slate-800 bg-slate-900/60 px-2.5 py-1 text-slate-300">
-              UniTask &amp; UniRx
-            </span>
-            <span class="rounded-md border border-slate-800 bg-slate-900/60 px-2.5 py-1 text-slate-300">
-              Zenject DI
-            </span>
-            <span class="rounded-md border border-slate-800 bg-slate-900/60 px-2.5 py-1 text-slate-300">
-              AltTester &amp; CI/CD
-            </span>
+            {ui.hero.competencies.map((comp) => {
+              const badgeClasses =
+                comp.variant === 'cyan'
+                  ? 'border-cyan-500/30 bg-cyan-950/30 text-cyan-300'
+                  : comp.variant === 'amber'
+                    ? 'border-amber-500/30 bg-amber-950/30 text-amber-300'
+                    : 'border-slate-800 bg-slate-900/60 text-slate-300';
+              return (
+                <span class={`rounded-md border px-2.5 py-1 ${badgeClasses}`}>{comp.text}</span>
+              );
+            })}
           </div>
         </div>
       </div>
@@ -140,7 +131,7 @@ import { SITE_META } from '../../data/site-meta';
             <div class="relative aspect-[4/5] w-full overflow-hidden rounded-xl bg-slate-950">
               <img
                 src="/images/profile-portrait.webp"
-                alt="Igor Coseanic — Senior Unity Developer"
+                alt={ui.hero.portraitAlt}
                 width="480"
                 height="600"
                 class="h-full w-full object-cover object-top"
@@ -150,19 +141,19 @@ import { SITE_META } from '../../data/site-meta';
               <!-- Top Floating Badge -->
               <div class="absolute top-3 right-3 inline-flex items-center gap-1.5 rounded-full border border-slate-800/80 bg-slate-950/80 px-2.5 py-1 font-mono text-[11px] text-emerald-400 backdrop-blur-md">
                 <span class="h-1.5 w-1.5 rounded-full bg-emerald-400"></span>
-                <span>6+ Years Production</span>
+                <span>{ui.hero.yearsBadge}</span>
               </div>
 
               <!-- Bottom Gradient Overlay with Bio Info -->
               <div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-slate-950 via-slate-950/80 to-transparent p-4 pt-12">
-                <h2 class="text-lg font-bold text-slate-100">Igor Coseanic</h2>
-                <p class="font-mono text-xs text-cyan-400">Senior / Lead Unity Developer</p>
+                <h2 class="text-lg font-bold text-slate-100">{siteMeta.developerName}</h2>
+                <p class="font-mono text-xs text-cyan-400">{ui.hero.cardRole}</p>
                 <div class="mt-2 flex flex-wrap items-center gap-2 pt-2 border-t border-slate-800/80 text-[11px] font-mono text-slate-400">
-                  <span>6+ Years Exp</span>
+                  <span>{ui.hero.cardMeta[0]}</span>
                   <span>•</span>
-                  <span>Mobile, Web & PC</span>
+                  <span>{ui.hero.cardMeta[1]}</span>
                   <span>•</span>
-                  <span>Chisinau / Remote</span>
+                  <span>{ui.hero.cardMeta[2]}</span>
                 </div>
               </div>
             </div>

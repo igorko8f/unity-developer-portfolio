@@ -3,6 +3,8 @@ import BaseLayout from './BaseLayout.astro';
 import ProjectMediaShowcase from '../components/projects/ProjectMediaShowcase.astro';
 import ProjectNavigation from '../components/projects/ProjectNavigation.astro';
 import type { ProjectEntry } from '../utils/projects';
+import { localizePath, resolveLocale } from '../i18n';
+import { getUI } from '../i18n/ui';
 
 interface Props {
   project: ProjectEntry;
@@ -12,27 +14,20 @@ interface Props {
 
 const { project, prevProject, nextProject } = Astro.props;
 const { data } = project;
+const locale = resolveLocale(Astro.currentLocale);
+const ui = getUI(locale);
 
 const getCategoryLabel = (cat: string) => {
-  switch (cat) {
-    case 'commercial':
-      return 'Commercial Mobile';
-    case 'educational-ar':
-      return 'Augmented Reality';
-    case 'hardware-web3':
-      return 'Hardware & Web3';
-    case 'architecture-showcase':
-      return 'Architecture Showcase';
-    case 'independent-game':
-      return 'Gameplay Logic';
-    default:
-      return 'Project';
+  const categories = ui.projectCommon.categories;
+  if (cat in categories) {
+    return categories[cat as keyof typeof categories];
   }
+  return categories.default;
 };
 ---
 
 <BaseLayout
-  title={`${data.title} — Technical Case Study | Senior Unity Developer`}
+  title={`${data.title} — ${ui.projectCommon.titleSuffix}`}
   description={data.shortDescription}
   ogImage={data.coverImage}
 >
@@ -43,12 +38,12 @@ const getCategoryLabel = (cat: string) => {
         class="mb-6 flex items-center gap-2 font-mono text-xs text-slate-400"
         aria-label="Breadcrumb"
       >
-        <a href="/" class="hover:text-slate-200 transition-colors">
-          Home
+        <a href={localizePath('/', locale)} class="hover:text-slate-200 transition-colors">
+          {ui.nav.home}
         </a>
         <span>/</span>
-        <a href="/projects" class="hover:text-slate-200 transition-colors">
-          Projects
+        <a href={localizePath('/projects', locale)} class="hover:text-slate-200 transition-colors">
+          {ui.nav.projects}
         </a>
         <span>/</span>
         <span class="text-cyan-400 truncate">{data.title}</span>
@@ -73,19 +68,19 @@ const getCategoryLabel = (cat: string) => {
         <div class="mt-6 grid grid-cols-1 gap-4 rounded-xl border border-slate-800 bg-slate-900/50 p-4 sm:grid-cols-3">
           <div>
             <span class="font-mono text-[10px] uppercase tracking-wider text-slate-400 block">
-              My Role
+              {ui.projectCommon.myRole}
             </span>
             <span class="font-medium text-slate-200 text-sm">{data.role}</span>
             {data.teamSize && (
               <span class="block font-mono text-[11px] text-slate-400 mt-0.5">
-                Scope: {data.teamSize}
+                {ui.projectCommon.scope} {data.teamSize}
               </span>
             )}
           </div>
 
           <div>
             <span class="font-mono text-[10px] uppercase tracking-wider text-slate-400 block">
-              Category
+              {ui.projectCommon.category}
             </span>
             <span class="font-medium text-slate-200 text-sm">
               {getCategoryLabel(data.category)}
@@ -94,7 +89,7 @@ const getCategoryLabel = (cat: string) => {
 
           <div>
             <span class="font-mono text-[10px] uppercase tracking-wider text-slate-400 block">
-              Platforms
+              {ui.projectCommon.platforms}
             </span>
             <span class="font-medium text-slate-200 text-sm">{data.platforms.join(', ')}</span>
           </div>
@@ -109,8 +104,8 @@ const getCategoryLabel = (cat: string) => {
                   <span class="text-slate-400">{metric.label}:</span>
                   <span class="font-semibold text-emerald-400">{metric.value}</span>
                   {metric.verified && (
-                    <span class="text-[10px] text-slate-400" title="Verified production data">
-                      (Verified)
+                    <span class="text-[10px] text-slate-400" title={ui.projectCommon.verifiedTitle}>
+                      {ui.projectCommon.verified}
                     </span>
                   )}
                 </div>
@@ -155,14 +150,14 @@ const getCategoryLabel = (cat: string) => {
         data.collaborativeSystems.length > 0) && (
         <section class="mt-10 rounded-xl border border-slate-800 bg-slate-900/30 p-6 space-y-6">
           <h2 class="font-mono text-xs uppercase tracking-wider text-slate-400">
-            Systems & Engineering Ownership Breakdown
+            {ui.projectCommon.ownershipHeading}
           </h2>
 
           <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {data.implementedSystems.length > 0 && (
               <div class="space-y-2">
                 <span class="font-mono text-xs font-semibold text-emerald-400 flex items-center gap-1.5">
-                  <span>✓</span> Personally Implemented
+                  <span>✓</span> {ui.projectCommon.personallyImplemented}
                 </span>
                 <ul class="space-y-1.5 text-xs text-slate-300">
                   {data.implementedSystems.map((item) => (
@@ -178,7 +173,7 @@ const getCategoryLabel = (cat: string) => {
             {data.integratedSystems.length > 0 && (
               <div class="space-y-2">
                 <span class="font-mono text-xs font-semibold text-cyan-400 flex items-center gap-1.5">
-                  <span>⚡</span> Integrated & Maintained
+                  <span>⚡</span> {ui.projectCommon.integratedMaintained}
                 </span>
                 <ul class="space-y-1.5 text-xs text-slate-300">
                   {data.integratedSystems.map((item) => (
@@ -194,7 +189,7 @@ const getCategoryLabel = (cat: string) => {
             {data.collaborativeSystems.length > 0 && (
               <div class="space-y-2">
                 <span class="font-mono text-xs font-semibold text-purple-400 flex items-center gap-1.5">
-                  <span>👥</span> Collaborative Systems
+                  <span>👥</span> {ui.projectCommon.collaborativeSystems}
                 </span>
                 <ul class="space-y-1.5 text-xs text-slate-300">
                   {data.collaborativeSystems.map((item) => (
@@ -216,7 +211,7 @@ const getCategoryLabel = (cat: string) => {
           {data.analyticsHighlights.length > 0 && (
             <div class="rounded-xl border border-amber-500/20 bg-amber-950/10 p-5 space-y-2">
               <span class="font-mono text-xs font-semibold uppercase text-amber-400 block">
-                📊 Telemetry & Data Infrastructure
+                {ui.projectCommon.telemetryHeading}
               </span>
               <ul class="space-y-1.5 text-xs text-slate-300">
                 {data.analyticsHighlights.map((point) => (
@@ -232,7 +227,7 @@ const getCategoryLabel = (cat: string) => {
           {data.backendHighlights.length > 0 && (
             <div class="rounded-xl border border-cyan-500/20 bg-cyan-950/10 p-5 space-y-2">
               <span class="font-mono text-xs font-semibold uppercase text-cyan-400 block">
-                🌐 Backend & REST API Communication
+                {ui.projectCommon.backendHeading}
               </span>
               <ul class="space-y-1.5 text-xs text-slate-300">
                 {data.backendHighlights.map((point) => (
@@ -250,7 +245,7 @@ const getCategoryLabel = (cat: string) => {
       <!-- Technologies Used -->
       <section class="mt-8 pt-6 border-t border-slate-800">
         <span class="font-mono text-xs uppercase tracking-wider text-slate-400 block mb-3">
-          Technologies & Libraries
+          {ui.projectCommon.technologiesHeading}
         </span>
         <div class="flex flex-wrap gap-2 font-mono text-xs">
           {data.technologies.map((tech) => (

@@ -1,0 +1,112 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ProjectCard from '../projects/ProjectCard.astro';
+import { getAllProjects } from '../../utils/projects';
+import { resolveLocale } from '../../i18n';
+import { getUI } from '../../i18n/ui';
+
+const locale = resolveLocale(Astro.currentLocale);
+const ui = getUI(locale);
+const projects = await getAllProjects(locale);
+
+const commercialProjects = projects.filter((p) => p.data.category === 'commercial');
+const architectureProjects = projects.filter(
+  (p) => p.data.category === 'architecture-showcase' || p.data.category === 'independent-game',
+);
+const specializedProjects = projects.filter(
+  (p) => p.data.category === 'educational-ar' || p.data.category === 'hardware-web3',
+);
+---
+
+<BaseLayout title={ui.projectsPage.metaTitle} description={ui.projectsPage.metaDescription}>
+  <div id="all" class="py-16 sm:py-20 lg:py-24">
+    <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+      <!-- Page Header -->
+      <header class="max-w-3xl space-y-4 border-b border-slate-800 pb-10">
+        <div class="inline-flex items-center gap-2 font-mono text-xs uppercase tracking-wider text-cyan-400">
+          <span>{ui.projectsPage.eyebrow}</span>
+        </div>
+        <h1 class="text-4xl font-bold tracking-tight text-slate-100 sm:text-5xl">
+          {ui.projectsPage.heading}
+        </h1>
+        <p class="text-lg text-slate-400 leading-relaxed">{ui.projectsPage.description}</p>
+
+        <!-- Quick filter summary pills -->
+        <div class="flex flex-wrap items-center gap-2.5 pt-2 font-mono text-xs">
+          <a
+            href="#all"
+            class="rounded-md border border-cyan-500/30 bg-cyan-950/40 px-3.5 py-2 text-cyan-300"
+          >
+            {ui.projectsPage.filterAll} ({projects.length})
+          </a>
+          <a
+            href="#commercial"
+            class="rounded-md border border-slate-800 bg-slate-900/60 px-3.5 py-2 text-slate-400 hover:text-slate-200 transition"
+          >
+            {ui.projectsPage.filterCommercial} ({commercialProjects.length})
+          </a>
+          <a
+            href="#architecture"
+            class="rounded-md border border-slate-800 bg-slate-900/60 px-3.5 py-2 text-slate-400 hover:text-slate-200 transition"
+          >
+            {ui.projectsPage.filterArchitecture} ({architectureProjects.length})
+          </a>
+          <a
+            href="#specialized"
+            class="rounded-md border border-slate-800 bg-slate-900/60 px-3.5 py-2 text-slate-400 hover:text-slate-200 transition"
+          >
+            {ui.projectsPage.filterSpecialized} ({specializedProjects.length})
+          </a>
+        </div>
+      </header>
+
+      <!-- Section 1: Commercial Experience -->
+      <section id="commercial" class="mt-14 space-y-6">
+        <div class="flex items-center gap-3">
+          <h2 class="text-2xl font-bold text-slate-100">{ui.projectsPage.sectionCommercial}</h2>
+          <span class="rounded bg-slate-800 px-2 py-0.5 font-mono text-xs text-slate-400">
+            {commercialProjects.length}
+          </span>
+        </div>
+
+        <div class="grid grid-cols-1 gap-6">
+          {commercialProjects.map((project) => (
+            <ProjectCard project={project} />
+          ))}
+        </div>
+      </section>
+
+      <!-- Section 2: Architecture & Systems -->
+      <section id="architecture" class="mt-16 space-y-6 pt-10 border-t border-slate-800/80">
+        <div class="flex items-center gap-3">
+          <h2 class="text-2xl font-bold text-slate-100">{ui.projectsPage.sectionArchitecture}</h2>
+          <span class="rounded bg-slate-800 px-2 py-0.5 font-mono text-xs text-slate-400">
+            {architectureProjects.length}
+          </span>
+        </div>
+
+        <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
+          {architectureProjects.map((project) => (
+            <ProjectCard project={project} />
+          ))}
+        </div>
+      </section>
+
+      <!-- Section 3: Specialized & Hardware Integrations -->
+      <section id="specialized" class="mt-16 space-y-6 pt-10 border-t border-slate-800/80">
+        <div class="flex items-center gap-3">
+          <h2 class="text-2xl font-bold text-slate-100">{ui.projectsPage.sectionSpecialized}</h2>
+          <span class="rounded bg-slate-800 px-2 py-0.5 font-mono text-xs text-slate-400">
+            {specializedProjects.length}
+          </span>
+        </div>
+
+        <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
+          {specializedProjects.map((project) => (
+            <ProjectCard project={project} />
+          ))}
+        </div>
+      </section>
+    </div>
+  </div>
+</BaseLayout>

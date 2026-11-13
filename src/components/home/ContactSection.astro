@@ -1,5 +1,11 @@
 ---
-import { SITE_META } from '../../data/site-meta';
+import { getSiteMeta } from '../../data/site-meta';
+import { localizePath, resolveLocale } from '../../i18n';
+import { getUI } from '../../i18n/ui';
+
+const locale = resolveLocale(Astro.currentLocale);
+const siteMeta = getSiteMeta(locale);
+const ui = getUI(locale);
 ---
 
 <section
@@ -15,7 +21,7 @@ import { SITE_META } from '../../data/site-meta';
           <span class="relative inline-flex h-2 w-2 rounded-full bg-emerald-500"></span>
         </span>
         <span>
-          {SITE_META.status.label} • {SITE_META.status.sublabel}
+          {siteMeta.status.label} • {siteMeta.status.sublabel}
         </span>
       </div>
 
@@ -23,13 +29,10 @@ import { SITE_META } from '../../data/site-meta';
         id="contact-heading"
         class="text-3xl font-bold tracking-tight text-slate-100 sm:text-4xl lg:text-5xl"
       >
-        Let's Build Something Great Together
+        {ui.contact.heading}
       </h2>
 
-      <p class="text-base text-slate-400 leading-relaxed sm:text-lg">
-        Looking for a Unity developer for gameplay systems, client-server integration, or mobile
-        optimization? Feel free to reach out—I'd love to connect.
-      </p>
+      <p class="text-base text-slate-400 leading-relaxed sm:text-lg">{ui.contact.description}</p>
 
       <!-- Contact Interaction Card -->
       <div class="mt-8 rounded-2xl border border-slate-800 bg-slate-950 p-6 sm:p-8 space-y-6 text-left">
@@ -38,7 +41,7 @@ import { SITE_META } from '../../data/site-meta';
             <div class="relative h-12 w-12 shrink-0 overflow-hidden rounded-full border border-cyan-500/40 ring-2 ring-cyan-500/20 shadow-md">
               <img
                 src="/images/avatar.webp"
-                alt="Igor Coseanic"
+                alt={siteMeta.developerName}
                 width="48"
                 height="48"
                 class="h-full w-full object-cover"
@@ -46,14 +49,14 @@ import { SITE_META } from '../../data/site-meta';
             </div>
             <div>
               <span class="font-mono text-xs uppercase tracking-wider text-slate-400">
-                Direct Contact
+                {ui.contact.directContact}
               </span>
               <div class="mt-0.5 flex items-center gap-2">
                 <a
-                  href={`mailto:${SITE_META.email}`}
+                  href={`mailto:${siteMeta.email}`}
                   class="font-mono text-base font-semibold text-cyan-400 hover:underline sm:text-lg"
                 >
-                  {SITE_META.email}
+                  {siteMeta.email}
                 </a>
               </div>
             </div>
@@ -63,7 +66,7 @@ import { SITE_META } from '../../data/site-meta';
             <button
               id="home-copy-email-btn"
               type="button"
-              data-email={SITE_META.email}
+              data-email={siteMeta.email}
               class="inline-flex items-center gap-1.5 rounded-lg border border-slate-700 bg-slate-900 px-3.5 py-2 font-mono text-xs font-medium text-slate-200 transition hover:border-slate-500 hover:text-slate-100 focus:outline-none focus:ring-2 focus:ring-cyan-400"
             >
               <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -74,13 +77,13 @@ import { SITE_META } from '../../data/site-meta';
                   d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"
                 />
               </svg>
-              <span>Copy Email</span>
+              <span>{ui.contact.copyEmail}</span>
             </button>
             <span
               id="home-copy-toast"
               class="hidden font-mono text-xs text-emerald-400 font-semibold"
             >
-              Copied to clipboard!
+              {ui.contact.copiedToClipboard}
             </span>
           </div>
         </div>
@@ -88,22 +91,22 @@ import { SITE_META } from '../../data/site-meta';
         <div class="flex flex-wrap items-center justify-between gap-4 pt-2">
           <div class="flex flex-wrap items-center gap-3">
             <a
-              href={`mailto:${SITE_META.email}`}
+              href={`mailto:${siteMeta.email}`}
               class="inline-flex items-center justify-center rounded-lg bg-cyan-500 px-5 py-2.5 font-mono text-sm font-semibold text-slate-950 transition hover:bg-cyan-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400"
             >
-              Send Email
+              {ui.contact.sendEmail}
             </a>
             <a
-              href="/cv"
+              href={localizePath('/cv', locale)}
               class="inline-flex items-center justify-center rounded-lg border border-slate-700 bg-slate-900 px-5 py-2.5 font-mono text-sm font-medium text-slate-200 transition hover:border-slate-500 hover:text-slate-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400"
             >
-              View Full CV
+              {ui.contact.viewFullCv}
             </a>
           </div>
 
           <!-- Social Links -->
           <div class="flex items-center gap-3">
-            {SITE_META.socials
+            {siteMeta.socials
               .filter((s) => s.url.startsWith('http'))
               .map((social) => (
                 <a

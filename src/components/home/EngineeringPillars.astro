@@ -1,54 +1,9 @@
 ---
-const pillars = [
-  {
-    number: '01',
-    title: 'Commercial Gameplay & Mobile Optimization',
-    description:
-      'Designing robust gameplay systems tuned for smooth frame pacing on resource-constrained mobile hardware.',
-    items: [
-      'Core puzzle & Match-3 cascading algorithms with deterministic board states',
-      'Memory management: profiling and reducing per-frame GC allocations in critical gameplay paths',
-      'Mobile GPU optimization: draw call reduction, texture atlas optimization, and frame budgeting',
-      'Deep profiling with Unity Profiler, Memory Profiler, and on-device diagnostics',
-    ],
-  },
-  {
-    number: '02',
-    title: 'Backend Integration & Telemetry Pipelines',
-    description:
-      'Treating game clients as connected products with resilient server communication and data-driven observability.',
-    items: [
-      'Client-side REST API integration with token authentication and retry policies',
-      'Firebase ecosystem: Realtime Database, Firestore, and Authentication',
-      'Custom analytics telemetry pipeline with offline caching queues',
-      'A/B testing experimentation hooks and dynamic difficulty tuning via Remote Config',
-    ],
-  },
-  {
-    number: '03',
-    title: 'Modular Architecture & Clean Design',
-    description:
-      'Employing software craftsmanship to keep large codebases maintainable and extensible across multi-year live operations.',
-    items: [
-      'Component-based ability composition driven by ScriptableObjects',
-      'Reactive data binding using UniRx and R3 event pipelines',
-      'Dependency injection (Zenject / Extenject) for loose coupling and testability',
-      'Finite State Machines separating high-level meta game flows from gameplay logic',
-    ],
-  },
-  {
-    number: '04',
-    title: 'Engineering Quality, Testing & Mentorship',
-    description:
-      'Establishing engineering standards, automated test coverage, and collaborative mentoring across cross-functional teams.',
-    items: [
-      'Automated UI and gameplay regression testing using AltTester and PlayMode runners',
-      'Continuous Integration pipelines automating multi-platform build artifact generation',
-      'Rigorous code reviews emphasizing architectural cleanliness and memory safety',
-      'Mentoring junior and mid-level developers on C# idioms and design patterns',
-    ],
-  },
-];
+import { resolveLocale } from '../../i18n';
+import { getUI } from '../../i18n/ui';
+
+const locale = resolveLocale(Astro.currentLocale);
+const ui = getUI(locale);
 ---
 
 <section
@@ -59,27 +14,24 @@ const pillars = [
   <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
     <div class="max-w-3xl">
       <div class="inline-flex items-center gap-2 font-mono text-xs uppercase tracking-wider text-cyan-400">
-        <span>02 / Engineering Principles</span>
+        <span>{ui.pillars.eyebrow}</span>
       </div>
       <h2
         id="engineering-pillars-heading"
         class="mt-2 text-3xl font-bold tracking-tight text-slate-100 sm:text-4xl"
       >
-        Core Technical Pillars
+        {ui.pillars.heading}
       </h2>
-      <p class="mt-2 text-slate-400 text-base leading-relaxed">
-        How I approach game development as rigorous software engineering: building scalable client
-        architectures, resilient backend pipelines, and high-performance mobile systems.
-      </p>
+      <p class="mt-2 text-slate-400 text-base leading-relaxed">{ui.pillars.description}</p>
     </div>
 
     <div class="mt-12 grid grid-cols-1 gap-8 md:grid-cols-2">
-      {pillars.map((pillar) => (
+      {ui.pillars.items.map((pillar) => (
         <div class="flex flex-col justify-between rounded-xl border border-slate-800/80 bg-slate-900/40 p-6 sm:p-8 transition hover:border-slate-700 hover:bg-slate-900/60">
           <div>
             <div class="flex items-center justify-between border-b border-slate-800/80 pb-3">
               <span class="font-mono text-xs font-semibold text-cyan-400">
-                Pillar {pillar.number}
+                {ui.pillars.pillarLabel} {pillar.number}
               </span>
               <span class="h-1.5 w-1.5 rounded-full bg-cyan-400"></span>
             </div>

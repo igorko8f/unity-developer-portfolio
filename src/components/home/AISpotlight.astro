@@ -1,26 +1,9 @@
 ---
-const workflows = [
-  {
-    title: 'AI-Assisted Test Automation',
-    description:
-      'Scaffolding edge-case unit and state-machine test fixtures for pure C# game logic, then auditing every assertion manually.',
-  },
-  {
-    title: 'Pipeline & Boilerplate Velocity',
-    description:
-      'Drafting typed C# DTOs, serialization adapters, and repetitive SDK integration wrappers using Claude Code and GitHub Copilot.',
-  },
-  {
-    title: 'Architecture & Context Docs',
-    description:
-      'Maintaining structured repository rules (AGENTS.md) and architectural notes so AI tooling respects Unity memory and lifecycle constraints.',
-  },
-  {
-    title: 'Human-in-the-Loop Verification',
-    description:
-      'Treating all generated code as untrusted drafts—verified via compiler checks, Unity Profiler allocation tracking, and code review.',
-  },
-];
+import { resolveLocale } from '../../i18n';
+import { getUI } from '../../i18n/ui';
+
+const locale = resolveLocale(Astro.currentLocale);
+const ui = getUI(locale);
 ---
 
 <section
@@ -33,26 +16,22 @@ const workflows = [
       <!-- Left Column: Concise Narrative -->
       <div class="space-y-3 lg:col-span-5">
         <div class="inline-flex items-center gap-2 font-mono text-xs uppercase tracking-wider text-slate-400">
-          <span>03 / Supporting Workflows</span>
+          <span>{ui.aiSpotlight.eyebrow}</span>
         </div>
 
         <h2
           id="ai-spotlight-heading"
           class="text-2xl font-bold tracking-tight text-slate-100 sm:text-3xl"
         >
-          AI-Assisted Engineering Workflows
+          {ui.aiSpotlight.heading}
         </h2>
 
-        <p class="text-sm text-slate-300 leading-relaxed">
-          Alongside core Unity architecture, I integrate Claude Code and GitHub Copilot into my
-          development pipeline for test scaffolding, SDK research, and documentation—always under
-          strict human code review and profiling checks.
-        </p>
+        <p class="text-sm text-slate-300 leading-relaxed">{ui.aiSpotlight.description}</p>
       </div>
 
       <!-- Right Column: Compact 2x2 Grid -->
       <div class="grid grid-cols-1 gap-3.5 sm:grid-cols-2 lg:col-span-7">
-        {workflows.map((item) => (
+        {ui.aiSpotlight.workflows.map((item) => (
           <div class="rounded-lg border border-slate-800/80 bg-slate-950/70 p-4 transition hover:border-slate-700">
             <h3 class="font-semibold text-slate-100 text-sm">{item.title}</h3>
             <p class="mt-1.5 text-xs text-slate-400 leading-relaxed">{item.description}</p>

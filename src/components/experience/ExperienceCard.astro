@@ -1,11 +1,15 @@
 ---
 import type { WorkExperience } from '../../data/experience';
+import { localizePath, resolveLocale } from '../../i18n';
+import { getUI } from '../../i18n/ui';
 
 interface Props {
   experience: WorkExperience;
 }
 
 const { experience } = Astro.props;
+const locale = resolveLocale(Astro.currentLocale);
+const ui = getUI(locale);
 ---
 
 <article class="relative flex flex-col justify-between rounded-xl border border-slate-800 bg-slate-900/50 p-6 sm:p-8 space-y-6 transition hover:border-slate-700 hover:bg-slate-900/70">
@@ -20,7 +24,7 @@ const { experience } = Astro.props;
           {experience.company} • <span class="text-slate-400">{experience.location}</span>
           {experience.remote && (
             <span class="ml-1.5 rounded bg-slate-800/80 px-2 py-0.5 text-[11px] text-slate-300 border border-slate-700/60">
-              Remote
+              {ui.experienceCard.remote}
             </span>
           )}
         </p>
@@ -37,7 +41,7 @@ const { experience } = Astro.props;
     <!-- Detailed Responsibilities -->
     <div class="space-y-2 pt-2">
       <span class="font-mono text-xs uppercase tracking-wider text-slate-400 font-semibold block">
-        Technical Ownership & Delivery
+        {ui.experienceCard.technicalOwnership}
       </span>
       <ul class="space-y-1.5 text-xs text-slate-300">
         {experience.responsibilities.map((resp) => (
@@ -53,7 +57,7 @@ const { experience } = Astro.props;
     {experience.leadershipAndMentoring.length > 0 && (
       <div class="space-y-2 pt-2">
         <span class="font-mono text-xs uppercase tracking-wider text-emerald-400 font-semibold block">
-          Leadership, Mentoring & Collaboration
+          {ui.experienceCard.leadershipMentoring}
         </span>
         <ul class="space-y-1.5 text-xs text-slate-300">
           {experience.leadershipAndMentoring.map((lead) => (
@@ -79,10 +83,10 @@ const { experience } = Astro.props;
 
     {experience.projectsLinked && experience.projectsLinked.length > 0 && (
       <div class="flex items-center gap-2 font-mono text-xs text-slate-400">
-        <span>Linked Projects:</span>
+        <span>{ui.experienceCard.linkedProjects}</span>
         {experience.projectsLinked.map((proj) => (
           <a
-            href={`/projects/${proj}`}
+            href={localizePath(`/projects/${proj}`, locale)}
             class="text-cyan-400 hover:underline hover:text-cyan-300 capitalize"
           >
             {proj.replace(/-/g, ' ')} →

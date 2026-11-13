@@ -1,30 +1,42 @@
 import { getCollection, type CollectionEntry } from 'astro:content';
+import type { Locale } from '../i18n';
 
 export type ProjectEntry = CollectionEntry<'projects'>;
 export type AICaseStudyEntry = CollectionEntry<'ai-case-studies'>;
 
 /**
- * Returns all projects sorted by order ascending.
+ * Extracts the URL slug (without the leading `en/` or `ru/` folder prefix).
  */
-export async function getAllProjects(): Promise<ProjectEntry[]> {
-  const projects = await getCollection('projects');
+export function getProjectSlug(project: ProjectEntry): string {
+  return project.id.replace(/^(en|ru)\//, '');
+}
+
+/**
+ * Returns all projects for the given locale sorted by order ascending.
+ */
+export async function getAllProjects(locale: Locale = 'en'): Promise<ProjectEntry[]> {
+  const prefix = `${locale}/`;
+  const projects = await getCollection('projects', (entry) => entry.id.startsWith(prefix));
   return projects.sort((a, b) => a.data.order - b.data.order);
 }
 
 /**
- * Returns projects flagged for homepage display.
+ * Returns projects flagged for homepage display in the given locale.
  */
-export async function getFeaturedProjects(): Promise<ProjectEntry[]> {
-  const projects = await getAllProjects();
+export async function getFeaturedProjects(locale: Locale = 'en'): Promise<ProjectEntry[]> {
+  const projects = await getAllProjects(locale);
   return projects.filter((p) => p.data.featuredOnHome);
 }
 
 /**
- * Retrieves a single project by its collection id/slug.
+ * Retrieves a single project by its slug and locale.
  */
-export async function getProjectById(id: string): Promise<ProjectEntry | undefined> {
-  const projects = await getCollection('projects');
-  return projects.find((p) => p.id === id);
+export async function getProjectById(
+  slug: string,
+  locale: Locale = 'en',
+): Promise<ProjectEntry | undefined> {
+  const projects = await getAllProjects(locale);
+  return projects.find((p) => getProjectSlug(p) === slug || p.id === slug);
 }
 
 /**

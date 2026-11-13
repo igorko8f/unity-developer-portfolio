@@ -1,3 +1,5 @@
+import type { Locale } from '../i18n';
+
 export interface WorkExperience {
   id: string;
   company: string;
@@ -16,7 +18,7 @@ export interface WorkExperience {
   projectsLinked?: string[];
 }
 
-export const WORK_EXPERIENCE: WorkExperience[] = [
+const WORK_EXPERIENCE_EN: WorkExperience[] = [
   {
     id: 'mobile-game-studio-nda',
     company: 'Mobile Game Studio (NDA)',
@@ -154,6 +156,144 @@ export const WORK_EXPERIENCE: WorkExperience[] = [
   },
 ];
 
+const WORK_EXPERIENCE_RU: WorkExperience[] = [
+  {
+    id: 'mobile-game-studio-nda',
+    company: 'Мобильная игровая студия (NDA)',
+    role: 'Senior / Lead Unity Developer',
+    employmentType: 'Full-time',
+    period: {
+      start: '05/2023',
+      end: '06/2026',
+    },
+    location: 'Кишинёв, Молдова',
+    remote: false,
+    shortSummary:
+      'Разрабатывал и поддерживал коммерческие live-продукты для iOS и Android — во главе с флагманской Match-3 игрой (100k+ установок) — с глубокой интеграцией Firebase, кастомными конвейерами аналитики и технической координацией команды.',
+    responsibilities: [
+      'Разрабатывал и поддерживал мобильные Unity-приложения и live-продукты для iOS и Android.',
+      'Проектировал и реализовывал геймплейные системы, адаптивный UI и новые фичи с фокусом на производительность и масштабируемость.',
+      'Интегрировал и поддерживал Firebase (RTDB, Firestore, Auth, Analytics), SDK монетизации, атрибуции и другие сторонние сервисы.',
+      'Профилировал и оптимизировал CPU, потребление памяти и время загрузки на мобильных устройствах, снижая покадровые GC-аллокации на критических путях.',
+      'Участвовал в проектировании технической архитектуры, планировании майлстоунов, спринтов и оценке задач.',
+    ],
+    leadershipAndMentoring: [
+      'Проводил код-ревью, менторил разработчиков и координировал техническую реализацию в кросс-функциональной команде до 12 специалистов (включая 4 разработчиков).',
+      'Тесно взаимодействовал с геймдизайнерами, бэкенд-инженерами, аналитиками и QA для выпуска стабильных live-обновлений.',
+    ],
+    technologiesUsed: [
+      'Unity',
+      'C#',
+      'Firebase',
+      'REST APIs',
+      'LookerStudio',
+      'Google Cloud',
+      'UniTask',
+      'UniRx',
+      'Zenject',
+      'AltTester',
+      'iOS и Android',
+    ],
+    projectsLinked: ['commercial-match-3'],
+  },
+  {
+    id: 'dragons-lake',
+    company: "Dragon's Lake LTD",
+    role: 'Senior Unity Developer',
+    employmentType: 'Full-time',
+    period: {
+      start: '08/2022',
+      end: '04/2023',
+    },
+    location: 'Кишинёв, Молдова',
+    remote: true,
+    shortSummary:
+      'Разрабатывал и поддерживал кроссплатформенную карточную игру для Web и PC на Unity: основные геймплейные механики, UI-функциональность и оптимизация производительности.',
+    responsibilities: [
+      'Разрабатывал и поддерживал кроссплатформенную карточную игру для Web и PC на движке Unity.',
+      'Реализовывал геймплейные системы, UI-компоненты и базовые механики коллекционной карточной игры.',
+      'Оптимизировал производительность проекта и повышал стабильность работы на десктопе и в браузере.',
+      'Участвовал в проектировании архитектуры и планировании функциональности.',
+    ],
+    leadershipAndMentoring: [
+      'Взаимодействовал с дизайнерами, бэкенд-разработчиками, художниками и QA на протяжении всего цикла разработки.',
+      'Внедрял слабосвязанные архитектурные паттерны и понятные практики код-ревью.',
+    ],
+    technologiesUsed: [
+      'Unity',
+      'C#',
+      'Web и PC',
+      'Архитектура ПО',
+      'GitFlow',
+      'SOLID',
+      'OOP',
+      'DOTween',
+      'DI',
+    ],
+    projectsLinked: ['blue-light-epic'],
+  },
+  {
+    id: 'wab-studio-fastfoodgames',
+    company: 'WAB Studio & FastFoodGames',
+    role: 'Middle Unity Developer',
+    employmentType: 'Full-time',
+    period: {
+      start: '01/2021',
+      end: '06/2022',
+    },
+    location: 'Кишинёв, Молдова',
+    remote: true,
+    shortSummary:
+      'Создавал мобильные приложения и интерактивные игровые прототипы на Unity с упором на UX, кор-геймплей и интеграцию SDK монетизации.',
+    responsibilities: [
+      'Разрабатывал мобильные приложения и игровые прототипы на Unity.',
+      'Реализовывал геймплейные и UI-системы, ориентированные на пользовательский опыт и вовлечённость.',
+      'Интегрировал сторонние SDK для аналитики и монетизации.',
+    ],
+    leadershipAndMentoring: [
+      'Совместно с дизайнерами и художниками создавал отполированный интерактивный контент и быстрые proof-of-concept прототипы.',
+    ],
+    technologiesUsed: [
+      'Unity',
+      'C#',
+      'Mobile (iOS и Android)',
+      'UI-системы',
+      'SDK аналитики и монетизации',
+      'Git',
+    ],
+  },
+  {
+    id: 'ourview-games',
+    company: 'OurView Games',
+    role: 'Unity Game Developer',
+    employmentType: 'Full-time',
+    period: {
+      start: '04/2020',
+      end: '01/2021',
+    },
+    location: 'Кишинёв, Молдова',
+    remote: false,
+    shortSummary:
+      'Разрабатывал мобильные приложения, геймплейные системы, логику UI и прототипы с интеграцией аналитики и рекламных сетей.',
+    responsibilities: [
+      'Разрабатывал мобильные приложения и геймплейные системы на Unity.',
+      'Создавал UI-логику и игровые прототипы для мобильных проектов.',
+      'Интегрировал SDK аналитики и рекламной монетизации.',
+    ],
+    leadershipAndMentoring: [
+      'Работал в мультидисциплинарной команде на этапах итеративной разработки, тестирования и публикации в сторах.',
+    ],
+    technologiesUsed: [
+      'Unity',
+      'C#',
+      'Мобильная разработка игр',
+      'UI-логика',
+      'SDK монетизации',
+      'Git',
+    ],
+  },
+];
+
 export interface Education {
   institution: string;
   degree: string;
@@ -167,16 +307,48 @@ export interface Language {
   proficiency: string;
 }
 
-export const EDUCATION: Education = {
-  institution: 'Technical University Of Moldova, Chisinau',
-  degree: 'Bachelor of Science',
-  field: 'Software And Applications Development And Analysis',
-  graduationDate: '05/2019',
-  location: 'Chisinau, Moldova',
+const EDUCATION_BY_LOCALE: Record<Locale, Education> = {
+  en: {
+    institution: 'Technical University Of Moldova, Chisinau',
+    degree: 'Bachelor of Science',
+    field: 'Software And Applications Development And Analysis',
+    graduationDate: '05/2019',
+    location: 'Chisinau, Moldova',
+  },
+  ru: {
+    institution: 'Технический университет Молдовы (ТУМ), Кишинёв',
+    degree: 'Бакалавр наук',
+    field: 'Разработка и анализ программного обеспечения и приложений',
+    graduationDate: '05/2019',
+    location: 'Кишинёв, Молдова',
+  },
 };
 
-export const LANGUAGES: Language[] = [
-  { language: 'Russian', proficiency: 'Native language' },
-  { language: 'Romanian', proficiency: 'B2' },
-  { language: 'English', proficiency: 'B2' },
-];
+const LANGUAGES_BY_LOCALE: Record<Locale, Language[]> = {
+  en: [
+    { language: 'Russian', proficiency: 'Native language' },
+    { language: 'Romanian', proficiency: 'B2' },
+    { language: 'English', proficiency: 'B2' },
+  ],
+  ru: [
+    { language: 'Русский', proficiency: 'Родной' },
+    { language: 'Румынский', proficiency: 'B2' },
+    { language: 'Английский', proficiency: 'B2' },
+  ],
+};
+
+export function getWorkExperience(locale: Locale = 'en'): WorkExperience[] {
+  return locale === 'ru' ? WORK_EXPERIENCE_RU : WORK_EXPERIENCE_EN;
+}
+
+export function getEducation(locale: Locale = 'en'): Education {
+  return EDUCATION_BY_LOCALE[locale];
+}
+
+export function getLanguages(locale: Locale = 'en'): Language[] {
+  return LANGUAGES_BY_LOCALE[locale];
+}
+
+export const WORK_EXPERIENCE: WorkExperience[] = WORK_EXPERIENCE_EN;
+export const EDUCATION: Education = EDUCATION_BY_LOCALE.en;
+export const LANGUAGES: Language[] = LANGUAGES_BY_LOCALE.en;
