@@ -8,6 +8,7 @@ order: 5
 
 genre: 'Block Puzzle / Logic Game'
 platforms: ['PC', 'Cross-platform']
+teamSize: 'Solo (Technical Assignment)'
 role: 'Gameplay Developer'
 
 shortDescription: 'A puzzle game combining Tetris and Sudoku block mechanics built for an engineering test assignment. Engineered with Unity 6, Zenject dependency injection, R3 reactive programming, and a custom Unity Inspector editor tool for configuring 5x5 figure matrices.'

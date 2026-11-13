@@ -8,6 +8,7 @@ order: 3
 
 genre: 'Tycoon Simulator / CCG'
 platforms: ['PC', 'WebGL', 'Cross-platform']
+period: '08/2022 – 04/2023'
 role: 'Senior Unity Developer'
 
 shortDescription: 'A startup tycoon simulator and collectible card game planned for release on the Epic Games Store (project is now closed). As part of the core game unit, I developed the card game logic, UI systems, and integration with the tycoon and meta-game layers across PC and WebGL.'

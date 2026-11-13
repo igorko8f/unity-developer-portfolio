@@ -36,8 +36,8 @@ export const SITE_META: SiteMeta = {
   role: 'Senior / Lead Unity Developer & Systems Architect',
   yearsOfExperience: '6+',
   description:
-    'Portfolio of Igor Coseanic, Senior / Lead Unity Developer with 6+ years of commercial mobile, Web, and PC game experience, decoupled software architecture, backend & analytics integration, and AI-augmented engineering workflows.',
-  canonicalUrl: 'https://unitydev-portfolio.pages.dev',
+    'Portfolio of Igor Coseanic, Senior / Lead Unity Developer with 6+ years of commercial mobile, Web, and PC game experience, decoupled software architecture, backend & analytics integration, and AI-assisted engineering workflows.',
+  canonicalUrl: 'https://unity-developer-portfolio-58d.pages.dev',
   email: 'igor.coseanic@icloud.com',
   phone: '+37362033736',
   location: 'Chisinau, MD-2000 Moldova',

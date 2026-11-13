@@ -41,14 +41,14 @@ const hasGallery = galleryItems.length > 0;
       <div class="space-y-6">
         {videos.map((videoItem) => (
           <figure class="overflow-hidden rounded-2xl border border-slate-800 bg-slate-950/90 shadow-xl">
-            <div class="flex items-center justify-between border-b border-slate-800/80 bg-slate-900/70 px-4 py-2.5 font-mono text-xs">
-              <div class="flex items-center gap-2 text-slate-200">
-                <span class="inline-flex h-2 w-2 rounded-full bg-emerald-400"></span>
+            <div class="flex items-center justify-between gap-2 border-b border-slate-800/80 bg-slate-900/70 px-4 py-2.5 font-mono text-xs">
+              <div class="flex min-w-0 flex-1 items-center gap-2 text-slate-200">
+                <span class="inline-flex h-2 w-2 shrink-0 rounded-full bg-emerald-400"></span>
                 <span class="font-semibold truncate">
                   {videoItem.title ?? `${data.title} — Gameplay Showcase`}
                 </span>
               </div>
-              <span class="rounded border border-slate-700 bg-slate-950 px-2 py-0.5 text-[10px] text-cyan-300">
+              <span class="shrink-0 rounded border border-slate-700 bg-slate-950 px-2 py-0.5 text-[10px] text-cyan-300">
                 HD MP4
               </span>
             </div>

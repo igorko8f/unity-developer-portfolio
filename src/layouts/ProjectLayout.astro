@@ -34,6 +34,7 @@ const getCategoryLabel = (cat: string) => {
 <BaseLayout
   title={`${data.title} — Technical Case Study | Senior Unity Developer`}
   description={data.shortDescription}
+  ogImage={data.coverImage}
 >
   <article class="py-12 sm:py-16 lg:py-20">
     <div class="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
@@ -75,6 +76,11 @@ const getCategoryLabel = (cat: string) => {
               My Role
             </span>
             <span class="font-medium text-slate-200 text-sm">{data.role}</span>
+            {data.teamSize && (
+              <span class="block font-mono text-[11px] text-slate-400 mt-0.5">
+                Scope: {data.teamSize}
+              </span>
+            )}
           </div>
 
           <div>
@@ -256,7 +262,7 @@ const getCategoryLabel = (cat: string) => {
       </section>
 
       <!-- Case Study Narrative Body -->
-      <div class="mt-12 prose prose-invert prose-cyan max-w-none border-t border-slate-800 pt-10 text-slate-300 leading-relaxed">
+      <div class="mt-12 case-study-prose max-w-none border-t border-slate-800 pt-10">
         <slot />
       </div>
 

@@ -1,6 +1,8 @@
+export type SkillTier = 'production' | 'additional' | 'exploring';
+
 export interface Skill {
   name: string;
-  level: 'Expert' | 'Advanced' | 'Proficient';
+  tier: SkillTier;
   highlight?: boolean;
   note?: string;
 }
@@ -12,39 +14,69 @@ export interface SkillCategory {
   skills: Skill[];
 }
 
+export const SKILL_TIER_META: Record<
+  SkillTier,
+  { label: string; description: string; badgeClasses: string }
+> = {
+  production: {
+    label: 'Production Experience',
+    description: 'Used in shipped commercial mobile, PC, and WebGL products.',
+    badgeClasses: 'border-emerald-500/30 bg-emerald-950/40 text-emerald-300',
+  },
+  additional: {
+    label: 'Additional Experience',
+    description: 'Applied in independent projects, technical studies, and prototyping.',
+    badgeClasses: 'border-cyan-500/30 bg-cyan-950/40 text-cyan-300',
+  },
+  exploring: {
+    label: 'Familiarity / Exploring',
+    description: 'Exposure through R&D, architecture evaluation, or targeted integration.',
+    badgeClasses: 'border-slate-700 bg-slate-900 text-slate-300',
+  },
+};
+
 export const SKILL_CATEGORIES: SkillCategory[] = [
   {
     id: 'unity-csharp',
     title: 'Unity Engine & C# Core',
     shortDescription:
-      'Deep runtime mechanics, profiling, memory management, and language internals.',
+      'Runtime mechanics, profiling, memory management, and cross-platform delivery.',
     skills: [
       {
-        name: 'C# (Modern Language Features, .NET / Mono)',
-        level: 'Expert',
+        name: 'C# (.NET / Mono, Modern Language Features)',
+        tier: 'production',
         highlight: true,
       },
       {
-        name: 'Unity Engine (Unity 6, Mobile 2D/3D Lifecycle, URP)',
-        level: 'Expert',
+        name: 'Unity Engine (Mobile 2D/3D, PC, WebGL, URP)',
+        tier: 'production',
         highlight: true,
       },
       {
-        name: 'Memory & Profiler (GC Allocations, Memory Leaks, Frame Spikes)',
-        level: 'Expert',
+        name: 'Memory & CPU Profiling (Allocation Tracking, Frame Pacing)',
+        tier: 'production',
         highlight: true,
       },
       {
-        name: 'Addressables & Asset Management',
-        level: 'Advanced',
-      },
-      {
-        name: 'Unity UI (uGUI, UI Toolkit, Responsive Canvas)',
-        level: 'Expert',
+        name: 'Unity UI (uGUI, Responsive Canvas, Multi-Resolution Layouts)',
+        tier: 'production',
+        highlight: true,
       },
       {
         name: 'Animation Systems (DOTween, Unity Animation, Spine Runtime)',
-        level: 'Advanced',
+        tier: 'production',
+      },
+      {
+        name: 'Unity 6 (6000.x)',
+        tier: 'production',
+      },
+      {
+        name: 'Addressables & Asset Management',
+        tier: 'production',
+      },
+      {
+        name: 'UI Toolkit',
+        tier: 'exploring',
       },
     ],
   },
@@ -52,146 +84,144 @@ export const SKILL_CATEGORIES: SkillCategory[] = [
     id: 'backend-analytics',
     title: 'Backend Integration & Analytics Infrastructure',
     shortDescription:
-      'Connecting client games to server services, databases, and telemetry data pipelines.',
+      'Connecting game clients to server services, databases, and telemetry pipelines.',
     skills: [
       {
-        name: 'REST API Client Integration (HTTP/JSON, Auth Tokens, Error Handling)',
-        level: 'Advanced',
+        name: 'REST API Client Integration (HTTP/JSON, JWT Auth, Error Handling)',
+        tier: 'production',
         highlight: true,
       },
       {
-        name: 'Firebase (Authentication, Realtime Database, Cloud Firestore)',
-        level: 'Advanced',
+        name: 'Firebase (Auth, Realtime Database, Cloud Firestore, Crashlytics)',
+        tier: 'production',
         highlight: true,
       },
       {
         name: 'Analytics Telemetry & Custom Events (Firebase Analytics, AppsFlyer)',
-        level: 'Expert',
+        tier: 'production',
         highlight: true,
       },
       {
-        name: 'LookerStudio & Google Cloud (BigQuery, Telemetry Data Analysis)',
-        level: 'Advanced',
+        name: 'LookerStudio & Google Cloud (BigQuery, Telemetry Analysis)',
+        tier: 'production',
         highlight: true,
       },
       {
-        name: 'A/B Testing & Remote Configuration (RemoteConfig, Dynamic Difficulty)',
-        level: 'Advanced',
+        name: 'A/B Testing & Remote Configuration (Remote Config, Dynamic Difficulty)',
+        tier: 'production',
         highlight: true,
       },
       {
-        name: 'Offline Data Caching & Network Synchronization',
-        level: 'Advanced',
+        name: 'Offline Event Caching & Network Synchronization',
+        tier: 'production',
         highlight: true,
       },
       {
         name: 'Monetization & Mediation (Unity IAP, Google Mobile Ads)',
-        level: 'Advanced',
+        tier: 'production',
       },
     ],
   },
   {
     id: 'architecture',
     title: 'Software Architecture & Modular Design',
-    shortDescription: 'Decoupled, maintainable architectures that scale across multi-year LiveOps.',
+    shortDescription:
+      'Decoupled, maintainable architectures for multi-year LiveOps and modular systems.',
     skills: [
       {
         name: 'SOLID & Component-Based Design',
-        level: 'Expert',
+        tier: 'production',
         highlight: true,
       },
       {
-        name: 'Architectural Patterns (MVX, HMVC, State Machines)',
-        level: 'Expert',
+        name: 'Architectural Patterns (MVX, HMVC, Finite State Machines)',
+        tier: 'production',
         highlight: true,
       },
       {
-        name: 'ECS & Entitas Framework',
-        level: 'Advanced',
-      },
-      {
-        name: 'ScriptableObject-Driven Systems & Custom Tooling',
-        level: 'Expert',
-        highlight: true,
-      },
-      {
-        name: 'Reactive Programming (R3, UniRx)',
-        level: 'Advanced',
-        highlight: true,
-      },
-      {
-        name: 'Dependency Injection (Zenject / Extenject, VContainer)',
-        level: 'Advanced',
+        name: 'Dependency Injection (Zenject / Extenject)',
+        tier: 'production',
         highlight: true,
       },
       {
         name: 'Asynchronous Workflows (UniTask, async/await)',
-        level: 'Advanced',
+        tier: 'production',
         highlight: true,
       },
       {
-        name: 'Finite State Machines & Game Loop Separation',
-        level: 'Expert',
+        name: 'Reactive Programming (UniRx)',
+        tier: 'production',
+      },
+      {
+        name: 'ScriptableObject-Driven Systems & Custom Inspector Tooling',
+        tier: 'additional',
+        highlight: true,
+      },
+      {
+        name: 'Reactive Streams (R3)',
+        tier: 'additional',
+      },
+      {
+        name: 'ECS & Entitas Framework',
+        tier: 'exploring',
+      },
+      {
+        name: 'VContainer DI',
+        tier: 'exploring',
       },
     ],
   },
   {
     id: 'quality-devops',
-    title: 'Engineering Quality, Tooling & DevOps',
-    shortDescription: 'Ensuring code reliability, automated testing, and reproducible builds.',
+    title: 'Engineering Quality, Tooling & AI Workflows',
+    shortDescription:
+      'Code reliability, automated testing, reproducible builds, and AI-assisted workflows.',
     skills: [
       {
-        name: 'Git & Branching Workflows (GitFlow, Trunk, Code Review)',
-        level: 'Expert',
+        name: 'Git & Branching Workflows (GitFlow, Submodules, Code Review)',
+        tier: 'production',
         highlight: true,
       },
       {
         name: 'Automated Testing (AltTester, PlayMode, Unit Tests)',
-        level: 'Advanced',
+        tier: 'production',
         highlight: true,
       },
       {
         name: 'Code Review Leadership & Technical Mentorship',
-        level: 'Expert',
+        tier: 'production',
         highlight: true,
       },
       {
         name: 'CI/CD Pipelines (GitHub Actions, Automated Build Scripts)',
-        level: 'Advanced',
+        tier: 'production',
       },
       {
         name: 'Crash Triage & Diagnostics (Firebase Crashlytics, Smartlook)',
-        level: 'Advanced',
+        tier: 'production',
+      },
+      {
+        name: 'AI-Assisted Workflows (Claude Code, GitHub Copilot, AGENTS.md)',
+        tier: 'additional',
       },
     ],
   },
   {
-    id: 'specialized-ai',
-    title: 'Specialized Technologies & AI Workflows',
-    shortDescription: 'Augmented reality, external hardware, and disciplined agentic tooling.',
+    id: 'specialized',
+    title: 'Specialized Domains & Hardware',
+    shortDescription: 'Augmented reality and external hardware/platform integrations.',
     skills: [
       {
-        name: 'Augmented Reality (Vuforia, AR Foundation)',
-        level: 'Advanced',
+        name: 'Augmented Reality (Vuforia Engine Marker Tracking)',
+        tier: 'additional',
       },
       {
         name: 'Hardware & External Integration (NFC, Web3 APIs)',
-        level: 'Proficient',
+        tier: 'exploring',
       },
       {
-        name: 'Agentic Engineering (Antigravity, Claude Code, AGENTS.md)',
-        level: 'Advanced',
-        highlight: true,
-      },
-      {
-        name: 'Task Decomposition & Context Engineering',
-        level: 'Advanced',
-        highlight: true,
-      },
-      {
-        name: 'Human-in-the-Loop Quality Verification',
-        level: 'Expert',
-        highlight: true,
+        name: 'AR Foundation',
+        tier: 'exploring',
       },
     ],
   },

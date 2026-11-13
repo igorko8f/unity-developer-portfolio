@@ -8,6 +8,7 @@ order: 2
 
 genre: 'Gameplay Systems Framework'
 platforms: ['PC', 'Cross-platform']
+teamSize: 'Solo / Independent'
 role: 'Software Architect & Developer'
 
 shortDescription: 'An independent architecture showcase demonstrating a modular ability framework in Unity. Features component-based ability composition, ScriptableObject-driven configuration, instant and over-time status effects, target selection algorithms, and clean dependency management.'

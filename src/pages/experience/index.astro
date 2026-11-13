@@ -2,7 +2,7 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import ExperienceCard from '../../components/experience/ExperienceCard.astro';
 import { WORK_EXPERIENCE, EDUCATION, LANGUAGES } from '../../data/experience';
-import { SKILL_CATEGORIES } from '../../data/skills';
+import { SKILL_CATEGORIES, SKILL_TIER_META } from '../../data/skills';
 ---
 
 <BaseLayout
@@ -85,8 +85,8 @@ import { SKILL_CATEGORIES } from '../../data/skills';
               Code Reviews as Mentorship
             </span>
             <p class="text-xs text-slate-300 leading-relaxed">
-              Reviews are learning opportunities: catching GC spikes and memory leaks early while
-              coaching mid and junior engineers on C# design patterns.
+              Reviews are learning opportunities: catching allocation spikes and memory leaks early
+              while coaching mid and junior engineers on C# design patterns.
             </p>
           </div>
 
@@ -132,9 +132,23 @@ import { SKILL_CATEGORIES } from '../../data/skills';
             Technical Stack & Proficiency
           </h2>
           <p class="text-sm text-slate-400">
-            Battle-tested technologies across commercial mobile production, software architecture,
-            backend services, and AI workflows.
+            Technologies clearly separated between commercial production experience, independent
+            projects, and active exploration.
           </p>
+
+          <!-- Tier Legend -->
+          <div class="flex flex-wrap gap-3 pt-2">
+            {Object.values(SKILL_TIER_META).map((tierMeta) => (
+              <div class="inline-flex items-center gap-2 rounded-lg border border-slate-800 bg-slate-900/60 px-3 py-1.5 text-xs">
+                <span
+                  class={`font-mono text-[11px] rounded px-2 py-0.5 border ${tierMeta.badgeClasses}`}
+                >
+                  {tierMeta.label}
+                </span>
+                <span class="text-slate-400 hidden sm:inline">{tierMeta.description}</span>
+              </div>
+            ))}
+          </div>
         </div>
 
         <div class="grid grid-cols-1 gap-8 lg:grid-cols-2">
@@ -146,27 +160,24 @@ import { SKILL_CATEGORIES } from '../../data/skills';
               </div>
 
               <div class="space-y-2 pt-2 border-t border-slate-800/80">
-                {cat.skills.map((skill) => (
-                  <div class="flex items-center justify-between text-xs py-1 border-b border-slate-800/40 last:border-0">
-                    <span
-                      class={skill.highlight ? 'font-semibold text-slate-100' : 'text-slate-300'}
-                    >
-                      {skill.name}
-                    </span>
+                {cat.skills.map((skill) => {
+                  const tierInfo = SKILL_TIER_META[skill.tier];
+                  return (
+                    <div class="flex flex-wrap items-center justify-between gap-2 text-xs py-1.5 border-b border-slate-800/40 last:border-0">
+                      <span
+                        class={skill.highlight ? 'font-semibold text-slate-100' : 'text-slate-300'}
+                      >
+                        {skill.name}
+                      </span>
 
-                    <span
-                      class={`font-mono text-[11px] rounded px-2 py-0.5 border ${
-                        skill.level === 'Expert'
-                          ? 'border-emerald-500/30 bg-emerald-950/40 text-emerald-300'
-                          : skill.level === 'Advanced'
-                            ? 'border-cyan-500/30 bg-cyan-950/40 text-cyan-300'
-                            : 'border-slate-700 bg-slate-900 text-slate-400'
-                      }`}
-                    >
-                      {skill.level}
-                    </span>
-                  </div>
-                ))}
+                      <span
+                        class={`font-mono text-[11px] rounded px-2 py-0.5 border shrink-0 ${tierInfo.badgeClasses}`}
+                      >
+                        {tierInfo.label}
+                      </span>
+                    </div>
+                  );
+                })}
               </div>
             </div>
           ))}

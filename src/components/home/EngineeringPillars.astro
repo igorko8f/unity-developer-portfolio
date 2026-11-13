@@ -4,12 +4,12 @@ const pillars = [
     number: '01',
     title: 'Commercial Gameplay & Mobile Optimization',
     description:
-      'Designing robust gameplay systems that maintain responsive 60 FPS performance on resource-constrained mobile hardware.',
+      'Designing robust gameplay systems tuned for smooth frame pacing on resource-constrained mobile hardware.',
     items: [
       'Core puzzle & Match-3 cascading algorithms with deterministic board states',
-      'Memory management: eliminating garbage collection allocations in game loops',
+      'Memory management: profiling and reducing per-frame GC allocations in critical gameplay paths',
       'Mobile GPU optimization: draw call reduction, texture atlas optimization, and frame budgeting',
-      'Deep profiling with Unity Profiler, Memory Profiler, and device benchmarks',
+      'Deep profiling with Unity Profiler, Memory Profiler, and on-device diagnostics',
     ],
   },
   {
@@ -31,8 +31,8 @@ const pillars = [
       'Employing software craftsmanship to keep large codebases maintainable and extensible across multi-year live operations.',
     items: [
       'Component-based ability composition driven by ScriptableObjects',
-      'Reactive data binding using modern R3 and UniRx event pipelines',
-      'Dependency injection containers (Zenject / Extenject, VContainer) for loose coupling',
+      'Reactive data binding using UniRx and R3 event pipelines',
+      'Dependency injection (Zenject / Extenject) for loose coupling and testability',
       'Finite State Machines separating high-level meta game flows from gameplay logic',
     ],
   },

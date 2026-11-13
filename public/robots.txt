@@ -1,4 +1,2 @@
 User-agent: *
 Allow: /
-
-Sitemap: https://unitydev-portfolio.pages.dev/sitemap.xml

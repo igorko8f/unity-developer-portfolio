@@ -18,8 +18,8 @@ export interface WorkExperience {
 
 export const WORK_EXPERIENCE: WorkExperience[] = [
   {
-    id: 'avantaj-prim',
-    company: 'Avantaj Prim S.R.L',
+    id: 'mobile-game-studio-nda',
+    company: 'Mobile Game Studio (NDA)',
     role: 'Senior / Lead Unity Developer',
     employmentType: 'Full-time',
     period: {
@@ -29,12 +29,12 @@ export const WORK_EXPERIENCE: WorkExperience[] = [
     location: 'Chisinau, Moldova',
     remote: false,
     shortSummary:
-      'Engineered and supported live mobile products on iOS & Android reaching 1M+ downloads (Jolly Match 3, Jolly Battle, Jigsaw Puzzle) with deep Firebase integration, custom analytics pipelines, and team technical coordination.',
+      'Engineered and supported live commercial mobile products on iOS & Android—led by a flagship Match-3 title (100k+ downloads)—with deep Firebase integration, custom analytics pipelines, and team technical coordination.',
     responsibilities: [
       'Developed and maintained Unity mobile applications and live products for iOS and Android.',
       'Designed and implemented gameplay systems, responsive UI, and new features with a focus on performance and scalability.',
       'Integrated and maintained Firebase (RTDB, Firestore, Auth, Analytics), monetization, attribution, and other third-party SDKs.',
-      'Optimized CPU, memory usage, and loading times across a wide range of mobile devices, eliminating GC allocations and targeting 60 FPS.',
+      'Profiled and optimized CPU, memory usage, and loading times across mobile devices, reducing per-frame GC allocations in critical gameplay paths.',
       'Participated in technical architecture, milestone planning, sprint planning, and task estimation.',
     ],
     leadershipAndMentoring: [
@@ -49,12 +49,12 @@ export const WORK_EXPERIENCE: WorkExperience[] = [
       'LookerStudio',
       'Google Cloud',
       'UniTask',
-      'UniRx / R3',
+      'UniRx',
       'Zenject',
       'AltTester',
       'iOS & Android',
     ],
-    projectsLinked: ['jolly-match-3'],
+    projectsLinked: ['commercial-match-3'],
   },
   {
     id: 'dragons-lake',

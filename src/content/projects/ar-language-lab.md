@@ -8,7 +8,8 @@ order: 4
 
 genre: 'Augmented Reality / Educational Mobile App'
 platforms: ['Android']
-role: 'Lead Unity Developer'
+teamSize: 'Solo / Independent'
+role: 'Unity Developer'
 
 shortDescription: 'An interactive mobile educational application using marker-based Augmented Reality to teach foreign language vocabulary. Features 3D object manipulation, task-based learning, and a data-driven architecture separating lesson content from app updates.'
 
@@ -53,7 +54,7 @@ gallery:
 
 links:
   - label: 'GitHub Repository'
-    url: 'https://github.com/igorko8f/ar-languange-lab'
+    url: 'https://github.com/superxr-upsc/ar-language-lab'
     type: 'github'
 
 metrics:
